@@ -3,8 +3,6 @@ import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@ap
 import { setContext } from '@apollo/client/link/context'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
-import SearchBooks from './pages/SearchBooks';
-import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 import Profile from './pages/Profile';
 
@@ -34,11 +32,11 @@ function App() {
       <ChakraProvider>
         <Router>
           <>
-            <Navbar />
+            {/* <Navbar /> */}
             <Switch>
-              <Route exact path='/' component={SearchBooks} />
+              
               <Route exact path='/profile' component={Profile} />
-              <Route exact path='/saved' component={SavedBooks} />
+              
               <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
             </Switch>
           </>
