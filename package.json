@@ -1,5 +1,5 @@
 {
-  "name": "project-3-wardrobe-app",
+  "name": "MyStyle",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jcgasper/Project-3-Wardrobe-App.git"
+    "url": "git+https://github.com/jcgasper/mystyle.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jcgasper/Project-3-Wardrobe-App/issues"
+    "url": "https://github.com/jcgasper/mystyle/issues"
   },
   "homepage": "https://github.com/jcgasper/Project-3-Wardrobe-App#readme",
   "dependencies": {

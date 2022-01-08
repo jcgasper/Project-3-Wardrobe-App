@@ -2,6 +2,7 @@ import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { ChakraProvider } from '@chakra-ui/react';
 import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
@@ -28,7 +29,8 @@ const client = new ApolloClient({
 
 function App() {
   return (
-      <ApolloProvider client={client}>
+    <ApolloProvider client={client}>
+      <ChakraProvider>
         <Router>
           <>
             <Navbar />
@@ -39,7 +41,8 @@ function App() {
             </Switch>
           </>
         </Router>
-      </ApolloProvider>
+      </ChakraProvider>
+    </ApolloProvider>
   );
 }
 
