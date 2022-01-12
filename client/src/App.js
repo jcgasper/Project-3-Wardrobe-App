@@ -7,12 +7,13 @@ import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 import Profile from './pages/Profile';
+import AddItemForm from './pages/AddItemForm'
 
 const httpLink = createHttpLink({
   uri: '/graphql'
 });
 
-const authLink = setContext((_, { headers } ) => {
+const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('id_token');
   return {
     headers: {
@@ -30,21 +31,21 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    <ApolloProvider client={client}>
-      <ChakraProvider>
+    <ChakraProvider>
+      <ApolloProvider client={client}>
         <Router>
           <>
             <Navbar />
             <Switch>
-              <Route exact path='/' component={SearchBooks} />
-              <Route exact path='/profile' component={Profile} />
-              <Route exact path='/saved' component={SavedBooks} />
+              <Route exact path='/addItem'>
+                <AddItemForm />
+              </Route>
               <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
             </Switch>
           </>
         </Router>
-      </ChakraProvider>
-    </ApolloProvider>
+      </ApolloProvider>
+    </ChakraProvider>
   );
 }
 
