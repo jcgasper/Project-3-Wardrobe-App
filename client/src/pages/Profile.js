@@ -1,6 +1,8 @@
 import React from 'react';
-import { VStack, Container } from '@chakra-ui/react';
+import { VStack, Container, Icon, Flex, Button } from '@chakra-ui/react';
 import ProfileCategory from '../components/ProfileCategory';
+import AddButton from '../components/AddButton';
+import { FaPlus } from 'react-icons/fa';
 
 function Profile() {
 
@@ -10,19 +12,19 @@ function Profile() {
             id: 1,
             items: [
                 {
-                    image: 'https://via.placeholder.com/150x250',
+                    image: 'https://via.placeholder.com/160x256',
                     description: 't-shirt'
                 },
                 {
-                    image: 'https://via.placeholder.com/150x250',
+                    image: 'https://via.placeholder.com/160x256',
                     description: 'tank top'
                 },
                 {
-                    image: 'https://via.placeholder.com/150x250',
+                    image: 'https://via.placeholder.com/160x256',
                     description: 'dress shirt'
                 },
                 {
-                    image: 'https://via.placeholder.com/150x250',
+                    image: 'https://via.placeholder.com/160x256',
                     description: 'sweater'
                 },
             ]
@@ -32,19 +34,19 @@ function Profile() {
             id: 2,
             items: [
                 {
-                    image: 'https://via.placeholder.com/150x250',
+                    image: 'https://via.placeholder.com/160x256',
                     description: 'jeans'
                 },
                 {
-                    image: 'https://via.placeholder.com/150x250',
+                    image: 'https://via.placeholder.com/160x256',
                     description: 'slacks'
                 },
                 {
-                    image: 'https://via.placeholder.com/150x250',
+                    image: 'https://via.placeholder.com/160x256',
                     description: 'cargo shorts'
                 },
                 {
-                    image: 'https://via.placeholder.com/150x250',
+                    image: 'https://via.placeholder.com/160x256',
                     description: 'sweatpants'
                 },
             ]
@@ -54,19 +56,19 @@ function Profile() {
             id: 3,
             items: [
                 {
-                    image: 'https://via.placeholder.com/150x250',
+                    image: '',
                     description: 'jacket'
                 },
                 {
-                    image: 'https://via.placeholder.com/150x250',
+                    image: 'https://via.placeholder.com/160x256',
                     description: 'coat'
                 },
                 {
-                    image: 'https://via.placeholder.com/150x250',
+                    image: 'https://via.placeholder.com/160x256',
                     description: 'vest'
                 },
                 {
-                    image: 'https://via.placeholder.com/150x250',
+                    image: 'https://via.placeholder.com/160x256',
                     description: 'hoodie'
                 },
             ]
@@ -75,7 +77,7 @@ function Profile() {
 
     return (
         <>
-            <Container maxW="container.lg">
+            <Container maxW="container.lg" position='relative'>
                 <VStack spacing={5} p={4}>
                     {categories.map((category) => {
                         return (
@@ -83,6 +85,7 @@ function Profile() {
                         )
                     })}
                 </VStack>
+                <AddButton />
             </Container>
         </>
     );
