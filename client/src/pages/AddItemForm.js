@@ -15,10 +15,15 @@ import {
   Tag,
   TagLabel,
   TagCloseButton,
+  Spinner,
   Image
 } from "@chakra-ui/react";
 import { useState } from "react";
 import FileUploadControl from '../components/FileUploadControl';
+import { generateFileName, validateImageType } from '../utils/imageUploads';
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from '../utils/firebase';
+
 
 const AddItemForm = () => {
   const DEFAULT_IMAGE_LOCATION = "/no_image_uploaded.png";
@@ -26,6 +31,7 @@ const AddItemForm = () => {
   const [formState, setFormState] = useState({ description: "", itemType: "Top", tags: [] });
   const [newTag, setNewTag] = useState("");
   const [imageURL, setImageURL] = useState(DEFAULT_IMAGE_LOCATION);
+  const [isUploading, setIsUploading] = useState(false);
 
 
   const handleSubmit = (event) => {
@@ -60,29 +66,46 @@ const AddItemForm = () => {
   const removeTag = (tagToRemove) => {
     setFormState({ ...formState, tags: formState.tags.filter((tag) => tag !== tagToRemove) });
   };
-  
+
   const fileUploadHandler = (event) => {
     const file = event.target.files[0];
-    const {name, size, type} = file
     if (!file) {
+      return;
+    }
+
+    try {
+      // upload to firebase
+      validateImageType(file);
+      const uploadFileName = generateFileName(file);
+      const imageRef = ref(storage, uploadFileName);
+      setIsUploading(true);
+      uploadBytes(imageRef, file)
+      .then(snapshot => getDownloadURL(snapshot.ref))
+      .then(downloadURL => {
+        setIsUploading(false);
+        setImageURL(downloadURL);
+        // TODO add mutation to record imageURL on backend
+      })
+    } catch (error) {
+      console.error(error);
       toast({
-        title: "No file!",
+        title: "The file you selected wasn't a valid image file!",
         status: "error",
         duration: 3000,
         isClosable: true
       });
     }
 
-    // TODO upload picture to firebase
-    // TODO add hidden input for uploaded image URL
-    setImageURL(window.URL.createObjectURL(file))
-    toast({
-      title: "Your image:",
-      description: JSON.stringify({name, size, type}),
-      status: "error",
-      duration: 3000,
-      isClosable: true
-    }); 
+
+    
+    // setImageURL(window.URL.createObjectURL(file))
+    // toast({
+    //   title: "Your image:",
+    //   description: JSON.stringify({ name, size, type }),
+    //   status: "error",
+    //   duration: 3000,
+    //   isClosable: true
+    // });
   }
 
   return (
@@ -98,21 +121,18 @@ const AddItemForm = () => {
           <option>Accessory</option>
         </Select>
       </FormControl>
-      <Stack direction={["column", "row"]}>
-        {/* TODO Check out https://github.com/chakra-ui/chakra-ui/issues/457
-        <FormControl>
-          <FormLabel htmlFor="fileUpload">Upload Image File</FormLabel>
-          <Input
-            id="fileUpload"
+      <Stack direction={["column", "row"]} w="100%" justifyContent="space-between">
+        <HStack>
+          <FileUploadControl
+            placeholder="Click here"
+            acceptedFileTypes=".jpg, .jpeg, .png, .gif, .bmp"
             name="fileUpload"
-            accept=".jpg, .jpeg, .png, .gif, .bmp"
-            type="file"
-          />
-        </FormControl> */}
-        <FileUploadControl placeholder="Click here"
-         acceptedFileTypes=".jpg, .jpeg, .png, .gif, .bmp"
-         name="fileUpload" onChange={fileUploadHandler}
-        >Upload a Picture</FileUploadControl>
+            onChange={fileUploadHandler}
+          >
+            Upload a Picture
+          </FileUploadControl>
+          { isUploading ? <Spinner /> : ''}
+        </HStack>
         <Image maxW="320px" maxH="512px" src={imageURL} />
       </Stack>
 

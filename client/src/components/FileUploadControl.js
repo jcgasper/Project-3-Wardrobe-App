@@ -1,6 +1,6 @@
-// from https://github.com/chakra-ui/chakra-ui/issues/457#issuecomment-790826877
+// based on code from https://github.com/chakra-ui/chakra-ui/issues/457#issuecomment-790826877
 import React from 'react';
-import { Input, FormControl, FormLabel, InputGroup, InputLeftElement, Icon, Button } from "@chakra-ui/react";
+import { FormControl, FormLabel, InputGroup, Icon, Button } from "@chakra-ui/react";
 import { FaFileUpload } from "react-icons/fa";
 // import { useController } from "react-hook-form";
 import { useRef } from "react";
