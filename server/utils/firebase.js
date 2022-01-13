@@ -16,6 +16,8 @@ const bucket = getStorage().bucket();
 
 
 
-export async function deleteImageFromFirebase(filename) {
+async function deleteImageFromFirebase(filename) {
   return bucket.deleteFiles({prefix: filename, maxResults: 1});
 }
+
+module.export = { deleteImageFromFirebase };
