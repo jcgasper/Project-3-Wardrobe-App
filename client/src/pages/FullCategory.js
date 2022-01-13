@@ -52,7 +52,7 @@ function FullCategory() {
         <>
             <Container maxW="container.lg">
                 <Heading>{category}</Heading>
-                <Flex justify='space-around' flexWrap='wrap' bg="red.50" my={4} boxShadow="base" borderRadius='md'>
+                <Flex justify='space-around' flexWrap='wrap' bg="#F1EFFB" my={4} boxShadow="base" borderRadius='md'>
                     {categories[0].items.map((item) => {
                         return <ProfileBox image={item.image} desc={item.description} />
                     })}

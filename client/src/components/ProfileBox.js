@@ -19,13 +19,13 @@ function ProfileBox({image, desc}) {
     const articleImage = (image || image !== '' ) ? image : placeholder;
 
     return (
-        <Box m={4} p={0}>
-            <Image src={articleImage} w='160px' h='256px' />
-            <Flex justify='space-between' py={2}>
-                <Text>{desc}</Text>
-                <Menu>
-                    <MenuButton as={Button} size='sm' colorScheme='pink'>
-                        <Icon as={FaEllipsisH} />
+        <Box m={4} p={0} bg='#F8F9F1' borderRadius='md' boxShadow="base">
+            <Image src={articleImage} w='160px' h='256px' borderTopRadius='md' />
+            <Flex justify='space-between' p={2}>
+                <Text textColor='#000022'>{desc}</Text>
+                <Menu closeOnBlur>
+                    <MenuButton as={Button} size='xs' colorScheme='pink'>
+                        <Icon as={FaEllipsisH} boxSize={5} />
                     </MenuButton>
                     <MenuList>
                         {/* will link to respective pages */}

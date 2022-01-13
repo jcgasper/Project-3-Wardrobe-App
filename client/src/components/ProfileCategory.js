@@ -7,8 +7,8 @@ function ProfileCategory({category, items}) {
 
     return (
         <>
-        <Box width='full' bg="red.50" p={4} boxShadow="base" borderRadius='md' wrap>
-            <Heading as="h2" size="xl">{category}</Heading>
+        <Box width='full' p={4} boxShadow="base" borderRadius='md' wrap>
+            <Heading textColor='#000022' as="h2" size="xl">{category}</Heading>
                 <Flex justify='space-around'  flexWrap='wrap'>
                     {items.map((item) => {
                         return <ProfileBox image={item.image} desc={item.description} />
