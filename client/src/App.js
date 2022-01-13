@@ -3,10 +3,9 @@ import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@ap
 import { setContext } from '@apollo/client/link/context'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
-import SearchBooks from './pages/SearchBooks';
-import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 import Profile from './pages/Profile';
+import FullCategory from './pages/FullCategory';
 import AddItemForm from './pages/AddItemForm'
 
 const httpLink = createHttpLink({
@@ -35,8 +34,11 @@ function App() {
       <ApolloProvider client={client}>
         <Router>
           <>
-            <Navbar />
+            {/* <Navbar /> */}
             <Switch>
+              
+              <Route exact path='/profile' component={Profile} />
+              <Route exact path='/profile/:category' component={FullCategory} />
               <Route exact path='/addItem'>
                 <AddItemForm />
               </Route>
