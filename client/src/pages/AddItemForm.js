@@ -133,6 +133,7 @@ const AddItemForm = () => {
           </FileUploadControl>
           { isUploading ? <Spinner /> : ''}
         </HStack>
+        {/* TODO add button to discard image */}
         <Image maxW="320px" maxH="512px" src={imageURL} />
       </Stack>
 
