@@ -3,8 +3,8 @@ const { Schema, model } = require('mongoose');
 const articleSchema = new Schema({
     category: {
         type: String,
-        enum: ['outerwear','top','bottom','footwear','accessory'],
-        required: 'please select a valid category'
+        enum: ['Outerwear','Top','Bottom','Footwear','Accessory'],
+        required: 'Please select a valid category.'
     },
     description: {
         type: String
@@ -12,9 +12,10 @@ const articleSchema = new Schema({
     tags: [{
         type: String
     }],
-    url: {
+    imageFile: {
         type: String
     }
 });
 
 const Article = model('Article', articleSchema);
+model.exports = Article;
