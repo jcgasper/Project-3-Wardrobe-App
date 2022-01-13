@@ -1,5 +1,5 @@
 import React from 'react';
-import { VStack, Container, Icon, Flex, Button } from '@chakra-ui/react';
+import { VStack, Container, StackDivider } from '@chakra-ui/react';
 import ProfileCategory from '../components/ProfileCategory';
 import AddButton from '../components/AddButton';
 import { FaPlus } from 'react-icons/fa';
@@ -78,7 +78,7 @@ function Profile() {
     return (
         <>
             <Container maxW="container.lg" position='relative'>
-                <VStack spacing={5} p={4}>
+                <VStack spacing={5} p={4} divider={<StackDivider borderColor='gray.300' />}>
                     {categories.map((category) => {
                         return (
                             <ProfileCategory category={category.name} items={category.items} key={category.id} />

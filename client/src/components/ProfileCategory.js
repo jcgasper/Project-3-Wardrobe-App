@@ -7,14 +7,14 @@ function ProfileCategory({category, items}) {
 
     return (
         <>
-        <Box width='full' p={4} boxShadow="base" borderRadius='md' wrap>
-            <Heading textColor='#000022' as="h2" size="xl">{category}</Heading>
-                <Flex justify='space-around'  flexWrap='wrap'>
-                    {items.map((item) => {
-                        return <ProfileBox image={item.image} desc={item.description} />
-                    })}
-                </Flex>
-            <Flex justify='start'>
+        <Box width='full' py={4} wrap>
+            <Heading textColor='pink.500' as="h2" size="xl">{category}</Heading>
+            <Flex justify='space-around' flexWrap='wrap' marginTop={4}>
+                {items.map((item) => {
+                    return <ProfileBox image={item.image} desc={item.description} />
+                })}
+            </Flex>
+            <Flex justify='start' marginTop={4}>
                 <Button as={reactLink} colorScheme='pink' to={`/profile/${category}`}>More</Button>
             </Flex>
         </Box>        
