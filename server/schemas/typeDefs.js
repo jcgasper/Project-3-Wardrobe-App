@@ -26,6 +26,11 @@ const typeDefs = gql`
     url: String
   }
 
+  type Auth {
+    token: ID
+    user: User
+  }
+
   type Query {
     user(userId: ID!): User
     articles(userId: ID!): [Article]
@@ -41,6 +46,7 @@ const typeDefs = gql`
       description: String,
       tags: [String],
       ): Article
+    addUser(email: String!, password: String!, displayname: String!): Auth
   }
 `;
 
