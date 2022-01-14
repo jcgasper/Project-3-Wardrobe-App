@@ -54,7 +54,24 @@ const resolvers = {
     },
     addUser: async (parent, args, info) => {
       const user = await User.create(args);
-      const token = await signToken(user);
+      const token = signToken(user);
+
+      return {token, user};
+    },
+    login: async (parent, {email, password}, info) => {
+      const user = await User.findOne({email});
+
+      if(!user) {
+        throw new AuthenticationError('Unable to locate user with that email/password');
+      }
+
+      const pwCheck = await user.isCorrectPassword(password);
+
+      if(!pwCheck) {
+        throw new AuthenticationError('Unable to locate user with that email/password');
+      }
+
+      const token = signToken(user);
 
       return {token, user};
     }
