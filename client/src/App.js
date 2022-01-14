@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Container } from '@chakra-ui/react';
 import Navbar from './components/Navbar';
+import Header from './components/Header';
+import Landing from './pages/Landing'
 import Profile from './pages/Profile';
 import FullCategory from './pages/FullCategory';
 import AddItemForm from './pages/AddItemForm'
@@ -33,12 +35,14 @@ function App() {
   return (
     <ChakraProvider>
       <ApolloProvider client={client}>
+        
         <Router>
           <>
             {/* <Navbar /> */}
             <Container maxW="container.lg">
+            <Header />
             <Switch>
-              
+              <Route exact path='/' component={Landing} />
               <Route exact path='/profile' component={Profile} />
               <Route exact path='/profile/:category' component={FullCategory} />
               <Route exact path='/addItem'>

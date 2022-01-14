@@ -15,7 +15,7 @@ function ProfileCategory({category, items}) {
                 })}
             </Flex>
             <Flex justify='start' marginTop={4}>
-                <Button as={reactLink} colorScheme='pink' to={`/profile/${category}`}>More</Button>
+                <Button as={reactLink} borderRadius='0' colorScheme='pink' to={`/profile/${category}`}>More</Button>
             </Flex>
         </Box>        
         </>

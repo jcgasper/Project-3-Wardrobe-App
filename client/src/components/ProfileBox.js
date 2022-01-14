@@ -34,11 +34,11 @@ function ProfileBox({image, desc, id}) {
 
     return (
         <>
-        <Box m={4} p={0} bg='pink.50' borderRadius='md' boxShadow="md" borderTop="1px" borderLeft="1px" borderColor="gray.200">
-            <Image src={articleImage} w='160px' h='256px' borderTopRadius='md' />
+        <Box m={4} p={0} bg='pink.50' boxShadow="md" borderTop="1px" borderLeft="1px" borderColor="gray.200">
+            <Image src={articleImage} w='160px' h='256px'  />
             <Flex justify='space-between' align='center' p={2}>
                 <Text textColor='#000022'>{(desc) ? `${desc}` : ' '}</Text>
-                <IconButton size='sm' icon={<FaTrashAlt />} aria-label='delete item' colorScheme='pink' onClick={() => setIsOpen(true)} />
+                <IconButton borderRadius='0' size='sm' icon={<FaTrashAlt />} aria-label='delete item' colorScheme='pink' onClick={() => setIsOpen(true)} />
             </Flex>
         </Box>
         <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose} >
@@ -53,10 +53,10 @@ function ProfileBox({image, desc, id}) {
             </AlertDialogBody>
 
             <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose}>
+              <Button borderRadius='0' ref={cancelRef} onClick={onClose}>
                 Cancel
               </Button>
-              <Button colorScheme='red' onClick={() => handleDelete(id)} ml={3}>
+              <Button borderRadius='0' bg='red.400' onClick={() => handleDelete(id)} ml={3}>
                 Delete
               </Button>
             </AlertDialogFooter>
