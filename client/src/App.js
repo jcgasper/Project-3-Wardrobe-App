@@ -7,7 +7,7 @@ import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 import Profile from './pages/Profile';
-import AddItemForm from './pages/AddItemForm'
+import AddItemForm from './pages/AddItemForm/index'
 
 const httpLink = createHttpLink({
   uri: '/graphql'
