@@ -1,9 +1,30 @@
-// see SignupForm.js for comments
+// refactored, need to adjust handleInput/handleForm to use Chakra UI
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
+import {
+  Flex,
+  Heading,
+  Input,
+  Button,
+  InputGroup,
+  Stack,
+  InputLeftElement,
+  chakra,
+  Box,
+  Link,
+  Avatar,
+  FormControl,
+  FormHelperText,
+  InputRightElement
+} from "@chakra-ui/react";
+import { FaUserAlt, FaLock } from "react-icons/fa";
+
+const CFaUserAlt = chakra(FaUserAlt);
+const CFaLock = chakra(FaLock);
+
 
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
@@ -44,46 +65,60 @@ const LoginForm = () => {
     });
   };
 
-  return (
-    <>
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-        <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-          Something went wrong with your login credentials!
-        </Alert>
-        <Form.Group>
-          <Form.Label htmlFor='email'>Email</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='Your email'
-            name='email'
-            onChange={handleInputChange}
-            value={userFormData.email}
-            required
-          />
-          <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
-        </Form.Group>
+    const [showPassword, setShowPassword] = useState(false);
+  
+    const handleShowClick = () => setShowPassword(!showPassword);
 
-        <Form.Group>
-          <Form.Label htmlFor='password'>Password</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Your password'
-            name='password'
-            onChange={handleInputChange}
-            value={userFormData.password}
-            required
-          />
-          <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
-        </Form.Group>
-        <Button
-          disabled={!(userFormData.email && userFormData.password)}
-          type='submit'
-          variant='success'>
-          Submit
-        </Button>
-      </Form>
-    </>
-  );
-};
+  return (
+    <Flex
+    minH={'100vh'}
+    align={'center'}
+    justify={'center'}
+    bg={useColorModeValue('gray.50', 'gray.800')}>
+    <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+      <Stack align={'center'}>
+        <Heading fontSize={'4xl'}>Sign in to your MyStyle account!</Heading>
+        <Text fontSize={'lg'} color={'gray.600'}>
+          to enjoy all of our cool <Link color={'blue.400'}>features</Link> ✌️
+        </Text>
+      </Stack>
+      <Box
+        rounded={'lg'}
+        bg={useColorModeValue('white', 'gray.700')}
+        boxShadow={'lg'}
+        p={8}>
+        <Stack spacing={4}>
+          <FormControl id="email">
+            <FormLabel>Email address</FormLabel>
+            <Input type="email" />
+          </FormControl>
+          <FormControl id="password">
+            <FormLabel>Password</FormLabel>
+            <Input type="password" />
+          </FormControl>
+          <Stack spacing={10}>
+            <Stack
+              direction={{ base: 'column', sm: 'row' }}
+              align={'start'}
+              justify={'space-between'}>
+              <Checkbox>Remember me</Checkbox>
+              <Link color={'blue.400'}>Forgot password?</Link>
+            </Stack>
+            <Button
+              bg={'blue.400'}
+              color={'white'}
+              _hover={{
+                bg: 'blue.500',
+              }}>
+              Sign in
+            </Button>
+          </Stack>
+        </Stack>
+      </Box>
+    </Stack>
+  </Flex>
+);
+}
+
 
 export default LoginForm;

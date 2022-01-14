@@ -3,75 +3,122 @@ import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
 import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
-
 import Auth from '../utils/auth';
+import { Link, Box, Flex, Text, Button, Stack } from "@chakra-ui/react";
 
-const AppNavbar = () => {
-  // set modal display state
-  const [showModal, setShowModal] = useState(false);
+import Logo from "./Logo";
 
-  return (
-    <>
-      <Navbar bg='dark' variant='dark' expand='lg'>
-        <Container fluid>
-          <Navbar.Brand as={Link} to='/'>
-            Google Books Search
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls='navbar' />
-          <Navbar.Collapse id='navbar'>
-            <Nav className='ml-auto'>
-              <Nav.Link as={Link} to='/'>
-                Search For Books
-              </Nav.Link>
-              {/* if user is logged in show saved books and logout */}
-              {Auth.loggedIn() ? (
-                <>
-                  <Nav.Link as={Link} to='/saved'>
-                    See Your Books
-                  </Nav.Link>
-                  <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
-                </>
-              ) : (
-                <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-      {/* set modal data up */}
-      <Modal
-        size='lg'
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        aria-labelledby='signup-modal'>
-        {/* tab container to do either signup or login component */}
-        <Tab.Container defaultActiveKey='login'>
-          <Modal.Header closeButton>
-            <Modal.Title id='signup-modal'>
-              <Nav variant='pills'>
-                <Nav.Item>
-                  <Nav.Link eventKey='login'>Login</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey='signup'>Sign Up</Nav.Link>
-                </Nav.Item>
-              </Nav>
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Tab.Content>
-              <Tab.Pane eventKey='login'>
-                <LoginForm handleModalClose={() => setShowModal(false)} />
-              </Tab.Pane>
-              <Tab.Pane eventKey='signup'>
-                <SignUpForm handleModalClose={() => setShowModal(false)} />
-              </Tab.Pane>
-            </Tab.Content>
-          </Modal.Body>
-        </Tab.Container>
-      </Modal>
-    </>
+
+const AppNavbar = (props) => {
+    const [isOpen, setIsOpen] = React.useState(false);
+
+    const toggle = () => setIsOpen(!isOpen);
+  
+    return (
+      <NavBarContainer {...props}>
+        <Logo
+          w="100px"
+          color={["white", "white", "primary.500", "primary.500"]}
+        />
+        <MenuToggle toggle={toggle} isOpen={isOpen} />
+        <MenuLinks isOpen={isOpen} />
+      </NavBarContainer>
+    );
+  };
+  
+  const CloseIcon = () => (
+    <svg width="24" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+      <title>Close</title>
+      <path
+        fill="white"
+        d="M9.00023 7.58599L13.9502 2.63599L15.3642 4.04999L10.4142 8.99999L15.3642 13.95L13.9502 15.364L9.00023 10.414L4.05023 15.364L2.63623 13.95L7.58623 8.99999L2.63623 4.04999L4.05023 2.63599L9.00023 7.58599Z"
+      />
+    </svg>
   );
-};
+  
+  const MenuIcon = () => (
+    <svg
+      width="24px"
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="white"
+    >
+      <title>Menu</title>
+      <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+    </svg>
+  );
+  
+  const MenuToggle = ({ toggle, isOpen }) => {
+    return (
+      <Box display={{ base: "block", md: "none" }} onClick={toggle}>
+        {isOpen ? <CloseIcon /> : <MenuIcon />}
+      </Box>
+    );
+  };
+  
+  const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
+    return (
+      <Link href={to}>
+        <Text display="block" {...rest}>
+          {children}
+        </Text>
+      </Link>
+    );
+  };
+  
+  const MenuLinks = ({ isOpen }) => {
+    return (
+      <Box
+        display={{ base: isOpen ? "block" : "none", md: "block" }}
+        flexBasis={{ base: "100%", md: "auto" }}
+      >
+        <Stack
+          spacing={8}
+          align="center"
+          justify={["center", "space-between", "flex-end", "flex-end"]}
+          direction={["column", "row", "row", "row"]}
+          pt={[4, 4, 0, 0]}
+        >
+          <MenuItem to="/">Home</MenuItem>
+          <MenuItem to="/">My Wardrobe </MenuItem>
+          <MenuItem to="/">Add Item </MenuItem>
+          <MenuItem to="/">Search Wardrobe </MenuItem>
+          <MenuItem to="/signup" isLast>
+            <Button
+              size="sm"
+              rounded="md"
+              color={["primary.500", "primary.500", "white", "white"]}
+              bg={["white", "white", "primary.500", "primary.500"]}
+              _hover={{
+                bg: ["primary.100", "primary.100", "primary.600", "primary.600"]
+              }}
+            >
+              Login/Signup
+            </Button>
+          </MenuItem>
+        </Stack>
+      </Box>
+    );
+  };
+  
+  const NavBarContainer = ({ children, ...props }) => {
+    return (
+      <Flex
+        as="nav"
+        align="center"
+        justify="space-between"
+        wrap="wrap"
+        w="100%"
+        mb={8}
+        p={8}
+        bg={["primary.500", "primary.500", "transparent", "transparent"]}
+        color={["white", "white", "primary.700", "primary.700"]}
+        {...props}
+      >
+        {children}
+      </Flex>
+    );
+  };
 
 export default AppNavbar;
+
