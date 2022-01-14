@@ -12,18 +12,22 @@ function Profile() {
             id: 1,
             items: [
                 {
+                    id: 1,
                     image: 'https://via.placeholder.com/160x256',
                     description: 't-shirt'
                 },
                 {
+                    id: 2,
                     image: 'https://via.placeholder.com/160x256',
                     description: 'tank top'
                 },
                 {
+                    id: 3,
                     image: 'https://via.placeholder.com/160x256',
                     description: 'dress shirt'
                 },
                 {
+                    id: 4,
                     image: 'https://via.placeholder.com/160x256',
                     description: 'sweater'
                 },
@@ -34,18 +38,22 @@ function Profile() {
             id: 2,
             items: [
                 {
+                    id: 5,
                     image: 'https://via.placeholder.com/160x256',
                     description: 'jeans'
                 },
                 {
+                    id: 6,
                     image: 'https://via.placeholder.com/160x256',
                     description: 'slacks'
                 },
                 {
+                    id: 7,
                     image: 'https://via.placeholder.com/160x256',
                     description: 'cargo shorts'
                 },
                 {
+                    id: 8,
                     image: 'https://via.placeholder.com/160x256',
                     description: 'sweatpants'
                 },
@@ -77,16 +85,14 @@ function Profile() {
 
     return (
         <>
-            <Container maxW="container.lg" position='relative'>
-                <VStack spacing={5} p={4} divider={<StackDivider borderColor='gray.300' />}>
-                    {categories.map((category) => {
-                        return (
-                            <ProfileCategory category={category.name} items={category.items} key={category.id} />
-                        )
-                    })}
-                </VStack>
-                <AddButton />
-            </Container>
+        <VStack spacing={5} p={4} divider={<StackDivider borderColor='gray.300' />}>
+            {categories.map((category) => {
+                return (
+                    <ProfileCategory category={category.name} items={category.items} key={category.id} />
+                )
+            })}
+        </VStack>
+        <AddButton />
         </>
     );
 };

@@ -7,11 +7,11 @@ function ProfileCategory({category, items}) {
 
     return (
         <>
-        <Box width='full' py={4} wrap>
+        <Box width='full' py={4} >
             <Heading textColor='pink.500' as="h2" size="xl">{category}</Heading>
             <Flex justify='space-around' flexWrap='wrap' marginTop={4}>
                 {items.map((item) => {
-                    return <ProfileBox image={item.image} desc={item.description} />
+                    return <ProfileBox image={item.image} desc={item.description} id={item.id} />
                 })}
             </Flex>
             <Flex justify='start' marginTop={4}>
