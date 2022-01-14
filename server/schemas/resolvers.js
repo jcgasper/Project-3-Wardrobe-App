@@ -51,6 +51,12 @@ const resolvers = {
       user.clothing.push(article._id)
       await user.save();
       return article;
+    },
+    addUser: async (parent, args, info) => {
+      const user = await User.create(args);
+      const token = await signToken(user);
+
+      return {token, user};
     }
   },
 };
