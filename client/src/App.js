@@ -39,8 +39,9 @@ function App() {
         <Router>
           <>
             {/* <Navbar /> */}
-            <Container maxW="container.lg">
             <Header />
+            <Container maxW="container.lg">
+            
             <Switch>
               <Route exact path='/' component={Landing} />
               <Route exact path='/profile' component={Profile} />
