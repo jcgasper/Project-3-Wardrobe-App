@@ -47,6 +47,7 @@ const typeDefs = gql`
       tags: [String],
       ): Article
     addUser(email: String!, password: String!, displayname: String!): Auth
+    login(email: String!, password: String!): Auth
   }
 `;
 
