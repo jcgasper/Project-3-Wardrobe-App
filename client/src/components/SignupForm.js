@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 import {
@@ -18,8 +17,7 @@ import {
     useColorModeValue,
     Link,
   } from '@chakra-ui/react';
-  import { useState } from 'react';
-  import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import Auth from '../utils/auth';
 
 const SignupForm = () => {
@@ -30,6 +28,8 @@ const SignupForm = () => {
   const [validated] = useState(false);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
+  // set state for password visibility
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link as ReactLink } from 'react-router-dom';
 import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
 import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
 import Auth from '../utils/auth';
 import { Link, Box, Flex, Text, Button, Stack } from "@chakra-ui/react";
 
-import Logo from "./Logo";
+//import Logo from "./Logo";
 
 
 const AppNavbar = (props) => {
@@ -15,11 +15,11 @@ const AppNavbar = (props) => {
     const toggle = () => setIsOpen(!isOpen);
   
     return (
-      <NavBarContainer {...props}>
-        <Logo
+      <NavBarContainer {...props} bg='pink.100'>
+        {/* <Logo
           w="100px"
           color={["white", "white", "primary.500", "primary.500"]}
-        />
+        /> */}
         <MenuToggle toggle={toggle} isOpen={isOpen} />
         <MenuLinks isOpen={isOpen} />
       </NavBarContainer>
@@ -58,11 +58,11 @@ const AppNavbar = (props) => {
   
   const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
     return (
-      <Link href={to}>
-        <Text display="block" {...rest}>
+      <ReactLink to={to}>
+        <Text display="block" {...rest} textColor='pink.800'>
           {children}
         </Text>
-      </Link>
+      </ReactLink>
     );
   };
   
@@ -80,14 +80,14 @@ const AppNavbar = (props) => {
           pt={[4, 4, 0, 0]}
         >
           <MenuItem to="/">Home</MenuItem>
-          <MenuItem to="/">My Wardrobe </MenuItem>
-          <MenuItem to="/">Add Item </MenuItem>
+          <MenuItem to="/Profile">My Wardrobe </MenuItem>
+          <MenuItem to="/addItem">Add Item </MenuItem>
           <MenuItem to="/">Search Wardrobe </MenuItem>
           <MenuItem to="/signup" isLast>
             <Button
               size="sm"
               rounded="md"
-              color={["primary.500", "primary.500", "white", "white"]}
+              color={["primary.500", "primary.500", "pink.800", "pink.800"]}
               bg={["white", "white", "primary.500", "primary.500"]}
               _hover={{
                 bg: ["primary.100", "primary.100", "primary.600", "primary.600"]
