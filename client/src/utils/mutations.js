@@ -63,3 +63,39 @@ export const REMOVE_BOOK = gql`
     }
   }
 `;
+
+export const ADD_TEMP_IMAGE = gql`
+  mutation addTempImage($userId: ID!, $filename: String!) {
+    addTempImage(userId: $userId, filename: $filename) {
+      _id: ID
+      email: String
+      displayname: String
+      password: String
+      tempImageFile: String
+    }
+  }
+`;
+
+export const REMOVE_TEMP_IMAGE = gql`
+  mutation removeTempImage($userId: ID!) {
+    removeTempImage(userId: $userId) {
+      _id: ID
+      email: String
+      displayname: String
+      password: String
+      tempImageFile: String
+    }
+  }
+`;
+
+export const ADD_ARTICLE = gql`
+  mutation addArticle($userId: ID!, $category: String, $description: String, $tags: [String]) {
+    addArticle(userId: $userId, category: $category, description: $description, tags: $tags) {
+      _id
+      category
+      description
+      tags
+      url
+    }
+  }
+`;
