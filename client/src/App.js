@@ -10,6 +10,7 @@ import Landing from './pages/Landing'
 import Profile from './pages/Profile';
 import FullCategory from './pages/FullCategory';
 import AddItemForm from './pages/AddItemForm'
+import SignupForm from './components/SignupForm';
 
 const httpLink = createHttpLink({
   uri: '/graphql'
@@ -44,6 +45,7 @@ function App() {
             
             <Switch>
               <Route exact path='/' component={Landing} />
+              <Route exact path='/signup' component={SignupForm} />
               <Route exact path='/profile' component={Profile} />
               <Route exact path='/profile/:category' component={FullCategory} />
               <Route exact path='/addItem' component={AddItemForm} />
