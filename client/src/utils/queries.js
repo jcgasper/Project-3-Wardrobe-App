@@ -19,3 +19,11 @@ export const GET_ME = gql`
     }
   }
 `;
+
+export const GET_TEMP_IMAGE_FILE = gql`
+  query GetTempImageFile($userId: ID!) {
+    user(userId: $userId) {
+      tempImageFile
+    }
+  }
+`;
