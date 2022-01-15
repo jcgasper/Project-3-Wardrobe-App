@@ -5,6 +5,8 @@ import ProfileBox from './ProfileBox';
 
 function ProfileCategory({category, items}) {
 
+    category = category.substring(0,1).toUpperCase() + category.substring(1);
+
     return (
         <>
         <Box width='full' py={4} >

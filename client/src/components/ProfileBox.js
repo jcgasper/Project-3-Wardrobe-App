@@ -14,8 +14,11 @@ import {
     IconButton } from '@chakra-ui/react';
 import { FaTrashAlt } from 'react-icons/fa';
 import placeholder from '../images/no_image_uploaded.png';
+import { useClothingContext } from '../utils/clothingContext';
 
 function ProfileBox({image, desc, id}) {
+
+    const { userClothing } = useClothingContext();
 
     const [isOpen, setIsOpen] = useState(false)
     const onClose = () => {
@@ -23,8 +26,8 @@ function ProfileBox({image, desc, id}) {
     }
 
     const handleDelete = (id) => {
+        
         onClose();
-        console.log(id);
     }
 
     const cancelRef = useRef()
