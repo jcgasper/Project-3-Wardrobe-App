@@ -27,13 +27,6 @@ const AddItemForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // toast({
-    //   title: "Form checked",
-    //   description: JSON.stringify(formState),
-    //   status: "success",
-    //   duration: 4000,
-    //   isClosable: true
-    // });
 
     submitArticle({
       variables: {
