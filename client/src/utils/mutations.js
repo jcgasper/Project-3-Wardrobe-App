@@ -24,46 +24,6 @@ export const ADD_USER = gql`
   }
 `;
 
-export const SAVE_BOOK = gql`
-  mutation saveBook($book: NewBook!) {
-    saveBook(book: $book) {
-      _id
-      username
-      email
-      bookCount
-      savedBooks {
-        _id
-        authors
-        description
-        bookId
-        title
-        image
-        link
-      }
-    }
-  }
-`;
-
-export const REMOVE_BOOK = gql`
-  mutation removeBook($bookId: ID!) {
-    removeBook(bookId: $bookId) {
-      _id
-      username
-      email
-      bookCount
-      savedBooks {
-        _id
-        authors
-        description
-        bookId
-        title
-        image
-        link
-      }
-    }
-  }
-`;
-
 export const ADD_TEMP_IMAGE = gql`
   mutation addTempImage($filename: String!) {
     addTempImage(filename: $filename) {
