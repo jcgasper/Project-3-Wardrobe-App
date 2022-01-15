@@ -27,8 +27,7 @@ const AddItemForm = () => {
   if (!Auth.loggedIn()) {
     // return <Redirect to="/" />;
   }
-  const { _id: userId } = { _id: null } //Auth.getProfile(); // TODO replace { _id: null } with Auth.getProfile()  
-
+  
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -45,7 +44,6 @@ const AddItemForm = () => {
 
     submitArticle({
       variables: {
-        userId,
         ...formState
       }
     });
@@ -57,7 +55,7 @@ const AddItemForm = () => {
 
       <CategoryControl setFormState={setFormState} formState={formState} />
 
-      <ImageUploadControls userId={userId} setFormState={setFormState} formState={formState} />
+      <ImageUploadControls setFormState={setFormState} formState={formState} />
 
       <DescriptionControl setFormState={setFormState} formState={formState} />
 

@@ -22,12 +22,12 @@ import { GET_TEMP_IMAGE_FILE } from '../../utils/queries';
 
 const DEFAULT_IMAGE_LOCATION = "/no_image_uploaded.png";
 
-const ImageUploadControls = ({ userId, formState, setFormState }) => {
+const ImageUploadControls = ({ formState, setFormState }) => {
   const [addTempImage, { loading: addTempImageLoading }] = useMutation(ADD_TEMP_IMAGE);
   const [removeTempImage, { loading: removeTempImageLoading }] = useMutation(REMOVE_TEMP_IMAGE);
   const [isUploading, setIsUploading] = useState(false);
   const [imageURL, setImageURL] = useState(DEFAULT_IMAGE_LOCATION);
-  const { loading: getTempImageLoading, data: getTempImageData } = useQuery(GET_TEMP_IMAGE_FILE, { variables: { userId } });
+  const { loading: getTempImageLoading, data: getTempImageData } = useQuery(GET_TEMP_IMAGE_FILE);
   const toast = useToast();
 
   if (getTempImageData?.user.tempImageFile && !(imageURL.includes(getTempImageData.user.tempImageFile))) {
@@ -54,7 +54,7 @@ const ImageUploadControls = ({ userId, formState, setFormState }) => {
       uploadBytes(imageRef, file)
         .then(snapshot => getDownloadURL(snapshot.ref))
         .then(downloadURL => {
-          addTempImage({ variables: { userId, filename: uploadFileName } });
+          addTempImage({ variables: { filename: uploadFileName } });
           setIsUploading(false);
           setImageURL(downloadURL);
           setFormState({ ...formState, imageUploaded: true });
@@ -71,7 +71,7 @@ const ImageUploadControls = ({ userId, formState, setFormState }) => {
   }
 
   const discardImageHandler = () => {
-    removeTempImage({ variables: { userId } });
+    removeTempImage();
     setImageURL(DEFAULT_IMAGE_LOCATION);
     setFormState({ ...formState, imageUploaded: false });
   };
