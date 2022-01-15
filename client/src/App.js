@@ -46,9 +46,7 @@ function App() {
               <Route exact path='/' component={Landing} />
               <Route exact path='/profile' component={Profile} />
               <Route exact path='/profile/:category' component={FullCategory} />
-              <Route exact path='/addItem'>
-                <AddItemForm />
-              </Route>
+              <Route exact path='/addItem' component={AddItemForm} />
               <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
             </Switch>
             </Container>
