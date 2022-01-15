@@ -86,14 +86,8 @@ const SignupForm = () => {
           <Stack spacing={4}>
             <HStack>
               <Box>
-                <FormControl id="firstName" isRequired>
-                  <FormLabel>First Name</FormLabel>
-                  <Input type="text" />
-                </FormControl>
-              </Box>
-              <Box>
-                <FormControl id="lastName">
-                  <FormLabel>Last Name</FormLabel>
+                <FormControl id="username" isRequired>
+                  <FormLabel>username</FormLabel>
                   <Input type="text" />
                 </FormControl>
               </Box>
