@@ -1,10 +1,5 @@
-import React, { useEffect } from "react";
-import {
-  VStack,
-  Heading,
-  Button,
-  useToast
-} from "@chakra-ui/react";
+import React from "react";
+import { VStack, Heading, Button, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import Auth from '../../utils/auth';
 import { Redirect } from 'react-router-dom';
