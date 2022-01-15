@@ -1,10 +1,25 @@
 import React from 'react';
-import { VStack, Heading, StackDivider } from '@chakra-ui/react';
+import { VStack, StackDivider, Text, Heading } from '@chakra-ui/react';
 import ProfileCategory from '../components/ProfileCategory';
 import AddButton from '../components/AddButton';
-import { FaPlus } from 'react-icons/fa';
+import { useQuery } from '@apollo/client';
+import { GET_ME } from '../utils/queries';
 
 function Profile() {
+
+    const { loading, error, data } = useQuery(GET_ME);
+
+    if(loading) {
+        return <Heading mt={10}>Searching Narnia...</Heading>
+    }
+
+    if(error) {
+        return <Heading mt={10}>You aren't logged in!</Heading>
+    }
+
+   /*  if(!data.clothing) {
+        return <Heading pt={4}>You haven't added any clothing yet...</Heading>
+    } */
 
     const categories = [
         {
