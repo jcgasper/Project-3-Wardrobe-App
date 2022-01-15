@@ -23,7 +23,7 @@ const typeDefs = gql`
     category: ArticleCategory
     description: String
     tags: [String]!
-    url: String
+    imageFile: String
     owner: User
   }
 

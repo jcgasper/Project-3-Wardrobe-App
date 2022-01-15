@@ -1,4 +1,8 @@
+import { getDownloadURL, ref } from 'firebase/storage';
 import { nanoid } from 'nanoid';
+import { storage } from './firebase';
+
+export const DEFAULT_IMAGE_LOCATION = "/no_image_uploaded.png";
 
 export function validateImageType(imageFile) {
   if (imageFile?.type?.startsWith('image')) {
@@ -19,4 +23,9 @@ function getFileExtension(imageFile) {
     throw new Error('Image file does not have a file extension.');
   }
   return imageFile.name.substring(extensionStart);
+}
+
+export async function getDownloadURLForImageFile(imageFile) {
+  if (!imageFile) return DEFAULT_IMAGE_LOCATION;
+  return await getDownloadURL(ref(storage, imageFile));
 }
