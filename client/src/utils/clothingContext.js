@@ -12,23 +12,23 @@ export const ClothingProvider = ({children}) => {
         //set up array of each category
         const categories = [
             {
-                category: 'tops',
+                type: 'tops',
                 items: []
             },
             {
-                category: 'bottoms',
+                type: 'bottoms',
                 items: []
             },
             {
-                category: 'outerwear',
+                type: 'outerwear',
                 items: []
             },
             {
-                category: 'accessories',
+                type: 'accessories',
                 items: []
             },
             {
-                category: 'footwear',
+                type: 'footwear',
                 items: []
             },
         ]

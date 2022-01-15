@@ -90,7 +90,7 @@ function Profile() {
             {userClothing.map((category) => {
                 if(category.items.length) {
                     return (
-                        <ProfileCategory category={category.category} items={category.items} key={category.id} />
+                        <ProfileCategory category={category.type} items={category.items} key={category.type} />
                     )
                 }
             })}
