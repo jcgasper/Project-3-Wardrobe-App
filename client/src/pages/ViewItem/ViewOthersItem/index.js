@@ -1,10 +1,5 @@
 import React from "react";
-import { VStack, Heading, Button, useToast } from "@chakra-ui/react";
-import { useState } from "react";
-import Auth from '../../utils/auth';
-import { Redirect } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
-import { ADD_ARTICLE } from '../../utils/mutations';
+import { VStack, Heading } from "@chakra-ui/react";
 import CategoryControl from './CategoryControl';
 import DescriptionControl from './DescriptionControl';
 import TagForm from './TagForm';

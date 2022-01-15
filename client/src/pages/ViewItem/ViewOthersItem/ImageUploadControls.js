@@ -8,15 +8,13 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { useState } from 'react';
-import { getDownloadURLForImageFile } from '../../utils/imageUploads';
+import { getDownloadURLForImageFile } from '../../../utils/imageUploads';
 
 
 
 const ImageUploadControls = ({ imageFile }) => {
   const [imageURL, setImageURL] = useState('');
-  useEffect(
-    () => { getDownloadURLForImageFile(imageFile).then(setImageURL) },
-    []);
+  useEffect(() => { getDownloadURLForImageFile(imageFile).then(setImageURL) }, [imageFile]);
 
 
   return (
