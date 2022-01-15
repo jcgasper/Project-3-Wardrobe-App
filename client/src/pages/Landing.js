@@ -10,7 +10,7 @@ function Landing() {
                 <Flex px={4} w='full' height='full' justify='center' align='center' flexDir='column' gap={5}>
                     <Heading p={5} bg='gray.50' textColor='pink.500'>Build your online wardrobe</Heading>
                     <Box display='flex' justify='space-between' gap={8}>
-                        <Button variant='outline' textColor='pink.100' borderColor='pink.100' _hover={{background: 'pink.500',borderColor: 'pink.500'}} as={ReactLink} to='/signup' borderRadius='0' size='lg'>Login</Button>
+                        <Button variant='outline' textColor='pink.50' borderColor='pink.50' _hover={{background: 'pink.500',borderColor: 'pink.500'}} as={ReactLink} to='/signup' borderRadius='0' size='lg'>Login</Button>
                         <Button as={ReactLink} to='/signup' borderRadius='0' size='lg' colorScheme='pink' textColor='gray.50'>Sign Up</Button>
                     </Box>
                     
