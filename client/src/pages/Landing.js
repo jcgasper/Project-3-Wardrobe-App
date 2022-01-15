@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link as ReactLink} from 'react-router-dom';
-import { VStack, Box, Heading, Flex, Button, Stack, StackDivider, Text } from '@chakra-ui/react';
+import { VStack, Box, Heading, Flex, Button, Stack, Icon } from '@chakra-ui/react';
 import heroImage from '../images/hero-image.jpg';
+import { FaCloudUploadAlt, FaWifi } from 'react-icons/fa'
 
 function Landing() {
     return (
@@ -13,7 +14,6 @@ function Landing() {
                         <Button variant='outline' textColor='pink.50' borderColor='pink.50' _hover={{background: 'pink.500',borderColor: 'pink.500'}} as={ReactLink} to='/signup' borderRadius='0' size='lg'>Login</Button>
                         <Button as={ReactLink} to='/signup' borderRadius='0' size='lg' colorScheme='pink' textColor='gray.50'>Sign Up</Button>
                     </Box>
-                    
                 </Flex>
             </Box>
             <Stack direction={['column','row']} justify='space-around' align='stretch' w='full' >
@@ -35,12 +35,24 @@ function Landing() {
                         <Box m={3} p={2} bg='pink.500' borderRadius='full' boxSize={10} textAlign='center' boxShadow='md' textColor='white' fontWeight='bold' >
                             2
                         </Box>
+                        <Box p={3}>
+                            Upload your clothes
+                        </Box>
+                        <Box p={3}>
+                            <Icon as={FaCloudUploadAlt} boxSize={10} textColor='pink.500' />
+                        </Box>
                     </VStack>
                 </Box>
                 <Box boxShadow='md' border='1px' borderColor='gray.200' w='200px' bg='pink.50'>
                     <VStack spacing={8}>
                         <Box m={3} p={2} bg='pink.500' borderRadius='full' boxSize={10} textAlign='center' boxShadow='md' textColor='white' fontWeight='bold' >
                             3
+                        </Box>
+                        <Box p={3}>
+                            View it all online
+                        </Box>
+                        <Box p={3}>
+                            <Icon as={FaWifi} boxSize={10} textColor='pink.500' />
                         </Box>
                     </VStack>
                 </Box>
