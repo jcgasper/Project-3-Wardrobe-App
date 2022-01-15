@@ -14,6 +14,10 @@ const articleSchema = new Schema({
     }],
     imageFile: {
         type: String
+    },
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 });
 
