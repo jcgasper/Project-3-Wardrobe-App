@@ -4,25 +4,23 @@ export const GET_ME = gql`
   query me {
     me {
       _id
-      username
       email
-      bookCount
-      savedBooks {
+      displayname
+      tempImageFile
+      clothing {
         _id
-        authors
+        category
         description
-        bookId
-        title
-        image
-        link
+        tags
+        url
       }
     }
   }
 `;
 
 export const GET_TEMP_IMAGE_FILE = gql`
-  query GetTempImageFile($userId: ID!) {
-    user(userId: $userId) {
+  query getTempImageFile {
+    me {
       tempImageFile
     }
   }

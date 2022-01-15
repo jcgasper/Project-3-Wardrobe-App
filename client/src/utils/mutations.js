@@ -65,8 +65,8 @@ export const REMOVE_BOOK = gql`
 `;
 
 export const ADD_TEMP_IMAGE = gql`
-  mutation addTempImage($userId: ID!, $filename: String!) {
-    addTempImage(userId: $userId, filename: $filename) {
+  mutation addTempImage($filename: String!) {
+    addTempImage(filename: $filename) {
       _id: ID
       email: String
       displayname: String
@@ -77,8 +77,8 @@ export const ADD_TEMP_IMAGE = gql`
 `;
 
 export const REMOVE_TEMP_IMAGE = gql`
-  mutation removeTempImage($userId: ID!) {
-    removeTempImage(userId: $userId) {
+  mutation removeTempImage {
+    removeTempImage {
       _id: ID
       email: String
       displayname: String
@@ -89,8 +89,8 @@ export const REMOVE_TEMP_IMAGE = gql`
 `;
 
 export const ADD_ARTICLE = gql`
-  mutation addArticle($userId: ID!, $category: String, $description: String, $tags: [String]) {
-    addArticle(userId: $userId, category: $category, description: $description, tags: $tags) {
+  mutation addArticle($category: String, $description: String, $tags: [String]) {
+    addArticle(category: $category, description: $description, tags: $tags) {
       _id
       category
       description
