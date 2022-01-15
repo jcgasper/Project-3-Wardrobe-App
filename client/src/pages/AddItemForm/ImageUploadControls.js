@@ -17,10 +17,10 @@ import { useMutation, useQuery } from '@apollo/client';
 import { ADD_TEMP_IMAGE, REMOVE_TEMP_IMAGE } from '../../utils/mutations';
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from '../../utils/firebase';
-import { generateFileName, validateImageType } from '../../utils/imageUploads';
+import { DEFAULT_IMAGE_LOCATION, generateFileName, getDownloadURLForImageFile, validateImageType } from '../../utils/imageUploads';
 import { GET_TEMP_IMAGE_FILE } from '../../utils/queries';
 
-const DEFAULT_IMAGE_LOCATION = "/no_image_uploaded.png";
+
 
 const ImageUploadControls = ({ formState, setFormState }) => {
   const [addTempImage, { loading: addTempImageLoading }] = useMutation(ADD_TEMP_IMAGE);
@@ -31,7 +31,7 @@ const ImageUploadControls = ({ formState, setFormState }) => {
   const toast = useToast();
 
   if (getTempImageData?.user.tempImageFile && !(imageURL.includes(getTempImageData.user.tempImageFile))) {
-    getDownloadURL(ref(storage, getTempImageData.user.tempImageFile))
+    getDownloadURLForImageFile( getTempImageData.user.tempImageFile)
       .then(url => {
         setFormState({ ...formState, imageUploaded: true })
         setImageURL(url);
