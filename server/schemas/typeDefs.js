@@ -24,6 +24,7 @@ const typeDefs = gql`
     description: String
     tags: [String]!
     url: String
+    owner: User
   }
 
   type Auth {
@@ -35,11 +36,12 @@ const typeDefs = gql`
     user(userId: ID!): User
     articles(userId: ID!): [Article]
     article(articleId: ID!): Article
+    me: User
   }
 
   type Mutation {
-    addTempImage(userId: ID!, filename: String!): User
-    removeTempImage(userId: ID!): User
+    addTempImage(filename: String!): User
+    removeTempImage: User
     addArticle(
       userId: ID!,
       category: ArticleCategory!,
@@ -48,9 +50,15 @@ const typeDefs = gql`
       ): Article
     addUser(email: String!, password: String!, displayname: String!): Auth
     login(email: String!, password: String!): Auth
+    updateArticle(
+      articleId: ID!,
+      category: ArticleCategory,
+      description: String,
+      tags: [String],
+      newImage: Boolean
+    ): Article
+    removeArticle(articleId: ID!): Article
   }
 `;
-
-// TODO probably need mutations for: adding users, updating articles, removing/updating images in existing articles?
 
 module.exports = typeDefs;

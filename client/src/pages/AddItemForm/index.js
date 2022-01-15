@@ -1,9 +1,5 @@
-import React, { useEffect } from "react";
-import {
-  VStack,
-  Heading,
-  Button
-} from "@chakra-ui/react";
+import React from "react";
+import { VStack, Heading, Button, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import Auth from '../../utils/auth';
 import { Redirect } from 'react-router-dom';
@@ -16,21 +12,38 @@ import ImageUploadControls from './ImageUploadControls';
 
 
 const AddItemForm = () => {
-  const [formState, setFormState] = useState({ description: "", category: "Top", tags: [] });
-  const [submitArticle, { loading: submittedArticleLoading }] = useMutation(ADD_ARTICLE, {onCompleted: () => {return <Redirect to="/" />}});
-  
+  const [formState, setFormState] = useState(
+    {
+      description: "",
+      category: "Top",
+      tags: [],
+      imageUploaded: false
+    }
+  );
+  const [submitArticle, { loading: submittedArticleLoading }] = useMutation(ADD_ARTICLE, { onCompleted: () => { return <Redirect to="/" /> } });
+  const toast = useToast();
+
   // TODO fix authentication
   if (!Auth.loggedIn()) {
     // return <Redirect to="/" />;
   }
-  const { _id: userId } = {_id: null} //Auth.getProfile();
-
+  
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    if (!formState.imageUploaded || !formState.description.trim()) {
+      toast({
+        title: 'Cannot Add Item',
+        description: "You need to upload an image or enter a description.",
+        status: 'warning',
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+
     submitArticle({
       variables: {
-        userId,
         ...formState
       }
     });
@@ -39,15 +52,15 @@ const AddItemForm = () => {
   return (
     <VStack padding={4} spacing={6} align="stretch" mb={10}>
       <Heading>Add Item to Your Wardrobe</Heading>
-      
+
       <CategoryControl setFormState={setFormState} formState={formState} />
 
-      <ImageUploadControls userId={userId} />
+      <ImageUploadControls setFormState={setFormState} formState={formState} />
 
       <DescriptionControl setFormState={setFormState} formState={formState} />
 
       <TagForm formState={formState} setFormState={setFormState} />
-      
+
       <Button my={8} onClick={handleSubmit} isLoading={submittedArticleLoading}>
         Register New Item
       </Button>
