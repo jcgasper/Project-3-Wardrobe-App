@@ -22,7 +22,7 @@ import { GET_TEMP_IMAGE_FILE } from '../../utils/queries';
 
 const DEFAULT_IMAGE_LOCATION = "/no_image_uploaded.png";
 
-const ImageUploadControls = ({ userId }) => {
+const ImageUploadControls = ({ userId, formState, setFormState }) => {
   const [addTempImage, { loading: addTempImageLoading }] = useMutation(ADD_TEMP_IMAGE);
   const [removeTempImage, { loading: removeTempImageLoading }] = useMutation(REMOVE_TEMP_IMAGE);
   const [isUploading, setIsUploading] = useState(false);
@@ -32,7 +32,10 @@ const ImageUploadControls = ({ userId }) => {
 
   if (getTempImageData?.user.tempImageFile && !(imageURL.includes(getTempImageData.user.tempImageFile))) {
     getDownloadURL(ref(storage, getTempImageData.user.tempImageFile))
-      .then(url => setImageURL(url));
+      .then(url => {
+        setFormState({ ...formState, imageUploaded: true })
+        setImageURL(url);
+      });
   }
 
 
@@ -54,6 +57,7 @@ const ImageUploadControls = ({ userId }) => {
           addTempImage({ variables: { userId, filename: uploadFileName } });
           setIsUploading(false);
           setImageURL(downloadURL);
+          setFormState({ ...formState, imageUploaded: true });
         })
     } catch (error) {
       console.error(error);
@@ -69,6 +73,7 @@ const ImageUploadControls = ({ userId }) => {
   const discardImageHandler = () => {
     removeTempImage({ variables: { userId } });
     setImageURL(DEFAULT_IMAGE_LOCATION);
+    setFormState({ ...formState, imageUploaded: false });
   };
 
   return (
@@ -94,7 +99,7 @@ const ImageUploadControls = ({ userId }) => {
             <Spinner size='xl' />
           </Center>
           :
-          <Image maxW="320px" maxH="512px" border={1} boxShadow="md" src={imageURL} />
+          <Image maxH="512px" border={1} boxShadow="md" src={imageURL} />
       }
 
     </Box>
