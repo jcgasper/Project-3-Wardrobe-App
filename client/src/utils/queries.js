@@ -12,8 +12,21 @@ export const GET_ME = gql`
         category
         description
         tags
-        url
+        imageFile
       }
+    }
+  }
+`;
+
+export const GET_ARTICLE = gql`
+  query article($articleId: ID!) {
+    article(articleId: $articleId) {
+      _id
+      category
+      description
+      tags
+      imageFile
+      owner
     }
   }
 `;
