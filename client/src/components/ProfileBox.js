@@ -14,11 +14,8 @@ import {
     IconButton } from '@chakra-ui/react';
 import { FaTrashAlt } from 'react-icons/fa';
 import placeholder from '../images/no_image_uploaded.png';
-import { useClothingContext } from '../utils/clothingContext';
 
 function ProfileBox({image, desc, id}) {
-
-    const { userClothing } = useClothingContext();
 
     const [isOpen, setIsOpen] = useState(false)
     const onClose = () => {
@@ -38,7 +35,7 @@ function ProfileBox({image, desc, id}) {
     return (
         <>
         <Box m={4} p={0} bg='pink.50' boxShadow="md" borderTop="1px" borderLeft="1px" borderColor="gray.200">
-            <Image src={articleImage} w='160px' h='256px'  />
+            <Image src={(image ? image : placeholder)} w='160px' h='256px'  />
             <Flex justify='space-between' align='center' p={2}>
                 <Text textColor='#000022'>{(desc) ? `${desc}` : ' '}</Text>
                 <IconButton borderRadius='0' size='sm' icon={<FaTrashAlt />} aria-label='delete item' colorScheme='pink' onClick={() => setIsOpen(true)} />
