@@ -9,12 +9,9 @@ import Landing from './pages/Landing'
 import Profile from './pages/Profile';
 import FullCategory from './pages/FullCategory';
 import AddItemForm from './pages/AddItemForm'
-<<<<<<< HEAD
 import SignupForm from './components/SignupForm';
 import { ClothingProvider } from './utils/clothingContext';
-=======
 import ViewItem from './pages/ViewItem';
->>>>>>> 1e437030254d4d7d1bb24f310fe0f447d9cdf6db
 
 import LoginForm from './components/LoginForm';
 const httpLink = createHttpLink({
