@@ -27,11 +27,11 @@ export const ADD_USER = gql`
 export const ADD_TEMP_IMAGE = gql`
   mutation addTempImage($filename: String!) {
     addTempImage(filename: $filename) {
-      _id: ID
-      email: String
-      displayname: String
-      password: String
-      tempImageFile: String
+      _id
+      email
+      displayname
+      password
+      tempImageFile
     }
   }
 `;
@@ -39,23 +39,23 @@ export const ADD_TEMP_IMAGE = gql`
 export const REMOVE_TEMP_IMAGE = gql`
   mutation removeTempImage {
     removeTempImage {
-      _id: ID
-      email: String
-      displayname: String
-      password: String
-      tempImageFile: String
+      _id
+      email
+      displayname
+      password
+      tempImageFile
     }
   }
 `;
 
 export const ADD_ARTICLE = gql`
-  mutation addArticle($category: String, $description: String, $tags: [String]) {
+  mutation addArticle($category: ArticleCategory!, $description: String, $tags: [String]) {
     addArticle(category: $category, description: $description, tags: $tags) {
       _id
       category
       description
       tags
-      url
+      imageFile
     }
   }
 `;

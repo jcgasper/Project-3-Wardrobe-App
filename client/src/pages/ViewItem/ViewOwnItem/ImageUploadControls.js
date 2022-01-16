@@ -11,14 +11,14 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { useState } from 'react';
-import FileUploadButton from '../../components/FileUploadButton';
+import FileUploadButton from '../../../components/FileUploadButton';
 import { FaTrash } from 'react-icons/fa';
 import { useMutation, useQuery } from '@apollo/client';
-import { ADD_TEMP_IMAGE, REMOVE_TEMP_IMAGE } from '../../utils/mutations';
+import { ADD_TEMP_IMAGE, REMOVE_TEMP_IMAGE } from '../../../utils/mutations';
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from '../../utils/firebase';
-import { DEFAULT_IMAGE_LOCATION, generateFileName, getDownloadURLForImageFile, validateImageType } from '../../utils/imageUploads';
-import { GET_TEMP_IMAGE_FILE } from '../../utils/queries';
+import { storage } from '../../../utils/firebase';
+import { DEFAULT_IMAGE_LOCATION, generateFileName, getDownloadURLForImageFile, validateImageType } from '../../../utils/imageUploads';
+import { GET_TEMP_IMAGE_FILE } from '../../../utils/queries';
 
 
 
@@ -30,8 +30,8 @@ const ImageUploadControls = ({ formState, setFormState }) => {
   const { loading: getTempImageLoading, data: getTempImageData } = useQuery(GET_TEMP_IMAGE_FILE);
   const toast = useToast();
 
-  if (getTempImageData?.tempImageFile && !(imageURL.includes(getTempImageData.tempImageFile))) {
-    getDownloadURLForImageFile(getTempImageData.tempImageFile)
+  if (getTempImageData?.user.tempImageFile && !(imageURL.includes(getTempImageData.user.tempImageFile))) {
+    getDownloadURLForImageFile( getTempImageData.user.tempImageFile)
       .then(url => {
         setFormState({ ...formState, imageUploaded: true })
         setImageURL(url);

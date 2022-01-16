@@ -68,7 +68,8 @@ const resolvers = {
         category,
         description,
         tags,
-        imageFile: tempImageFile
+        imageFile: tempImageFile,
+        owner: context.user._id
       });
       user.tempImageFile = ''
       user.clothing.push(article._id)

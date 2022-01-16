@@ -10,6 +10,8 @@ import Landing from './pages/Landing'
 import Profile from './pages/Profile';
 import FullCategory from './pages/FullCategory';
 import AddItemForm from './pages/AddItemForm'
+import ViewItem from './pages/ViewItem';
+
 import LoginForm from './components/LoginForm';
 const httpLink = createHttpLink({
   uri: '/graphql'
@@ -47,6 +49,7 @@ function App() {
               <Route exact path='/profile' component={Profile} />
               <Route exact path='/profile/:category' component={FullCategory} />
               <Route exact path='/addItem' component={AddItemForm} />
+              <Route exact path='/viewItem/:articleId' component={ViewItem} />
               <Route exact path='/login' component={LoginForm} />
               <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
             </Switch>
