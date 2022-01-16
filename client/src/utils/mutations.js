@@ -59,3 +59,13 @@ export const ADD_ARTICLE = gql`
     }
   }
 `;
+
+export const REMOVE_ARTICLE = gql`
+  mutation removeArticle($articleId: ID!) {
+    removeArticle(articleId: $articleId) {
+      description
+      category
+      _id
+    }
+  }
+`;

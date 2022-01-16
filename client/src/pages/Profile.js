@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { VStack, StackDivider, Text, Heading } from '@chakra-ui/react';
+import { VStack, StackDivider, Text, Heading, Progress } from '@chakra-ui/react';
 import ProfileCategory from '../components/ProfileCategory';
 import FullCategory from './FullCategory';
 import AddButton from '../components/AddButton';
@@ -16,24 +16,29 @@ function Profile() {
 
     const [currCategory, setCurrCategory] = useState();
 
-    const {loading, error, data} = useQuery(GET_BY_CATEGORY);
+    const {loading, error, data} = useQuery(GET_BY_CATEGORY, {
+        fetchPolicy: 'cache-and-network'
+    });
 
     if(loading) {
-        return <Heading mt={10}>Searching Narnia...</Heading>
+        return (
+        <>
+            <Heading mt={10}>Searching Narnia...</Heading>
+            <Progress colorScheme='pink' size='sm' isIndeterminate />
+        </>
+        )
     }
 
     const clothes = data?.categories || [];
-
-    const categories = [['Top','Tops'],['Bottom','Bottoms'],['Outerwear','Outerwear'],['Footwear','Footwear'],['Accessory','Accessories']];
 
     return (
         <>
         <VStack spacing={5} p={4} divider={<StackDivider borderColor='gray.300' />}>
            {(!currCategory) ? clothes.map((item, index) => {
-               return (<ProfileCategory category={item.category} items={item.clothing} key={index} />)
+               return (<ProfileCategory category={item.category} items={item.clothing} key={index} setCurrCategory={setCurrCategory} />)
            }) : clothes.map((item, index) => {
                if(item.category === currCategory) {
-                   return (<FullCategory category={item.category} items={item.clothing} key={index} />)
+                   return (<FullCategory category={item.category} items={item.clothing} key={index} setCurrCategory={setCurrCategory} />)
                }
            } )}
         </VStack>

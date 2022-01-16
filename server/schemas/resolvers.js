@@ -141,7 +141,7 @@ const resolvers = {
       // const [user, article] = await Promise.all([User.findById(context.user._id), Article.findById(articleId)]);
       const article = Article.findById(articleId).populate('owner');
       const user = article.owner
-      if (user._id !== context.user._id) {
+      if (user.id !== context.user._id) {
         throw new AuthenticationError('That item does not belong to you!');
       }
 
@@ -167,8 +167,8 @@ const resolvers = {
       }
 
       const article = await Article.findById(articleId).populate('owner');
-      if (article.owner._id !== context.user._id) {
-        throw new AuthenticationError('That item does not belong to you!');
+      if (article.owner.id !== context.user._id) {
+        throw new AuthenticationError(`That item does not belong to you!`);
       }
       
       if (article.imageFile) deleteImageFromFirebase(article.imageFile);

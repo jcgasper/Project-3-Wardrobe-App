@@ -1,14 +1,13 @@
 import React from 'react';
-import { Heading, Container, Flex } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
+import { Heading, Flex, Text, Box } from '@chakra-ui/react';
 import ProfileBox from '../components/ProfileBox';
 import AddButton from '../components/AddButton';
-import { useClothingContext } from '../utils/clothingContext';
 
-function FullCategory({category, items}) {
-    
-    //get current context
-    const { userClothing, addClothing } = useClothingContext();
+function FullCategory({category, items, setCurrCategory}) {
+
+    const goBack = () => {
+        setCurrCategory(null);
+    }
 
     //if no items, say they don't have any articles in there
     if(!items.length) {
@@ -16,15 +15,18 @@ function FullCategory({category, items}) {
     }
 
     return (
-        <>
-        <Heading as='h1' textColor='pink.500' marginTop={8}>Your {category}</Heading>
-        <Flex justify='space-around' flexWrap='wrap' my={4}>
-            {items.map((item) => {
-                return <ProfileBox image={item.imageFile} desc={item.description} key={item._id} />
-            })}
-        </Flex>
-        <AddButton />
-        </>
+        <Box minW='full'>
+            
+            <Heading as='h1' textColor='pink.500' marginTop={8}>Your {category}</Heading>
+            <Text onClick={goBack} cursor='pointer'>&#8592;  Back to Profile</Text>
+            <Flex justify='start' flexWrap='wrap' gap={6} my={4}>
+                {items.map((item) => {
+                    return <ProfileBox image={item.imageFile} desc={item.description} id={item._id} key={item._id} />
+                })}
+            </Flex>
+            <Text onClick={goBack} cursor='pointer'>&#8592;  Back to Profile</Text>
+            <AddButton />
+        </Box>
     )
 }
 
