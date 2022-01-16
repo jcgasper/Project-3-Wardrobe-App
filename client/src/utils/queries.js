@@ -26,7 +26,10 @@ export const GET_ARTICLE = gql`
       description
       tags
       imageFile
-      owner
+      owner {
+        _id
+        displayname
+      }
     }
   }
 `;

@@ -2,20 +2,14 @@ import React from 'react'
 import {
   FormControl,
   FormLabel,
-  Select,
+  Text,
 } from "@chakra-ui/react";
 
-const CategoryControl = ({ formState, setFormState }) => {
+const CategoryControl = ({ category }) => {
   return (
     <FormControl isRequired>
-      <FormLabel htmlFor="type">Item Category</FormLabel>
-      <Select id="type" w={200} onChange={(e) => setFormState({ ...formState, category: e.target.value })}>
-        <option>Top</option>
-        <option>Bottom</option>
-        <option>Outerwear</option>
-        <option>Footwear</option>
-        <option>Accessory</option>
-      </Select>
+      <FormLabel htmlFor="category">Item Category</FormLabel>
+      <Text id="category">{category}</Text>
     </FormControl>
   );
 }
