@@ -1,39 +1,37 @@
 import React from "react";
 import { VStack, Heading, Button, useToast } from "@chakra-ui/react";
 import { useState } from "react";
-import Auth from '../../utils/auth';
+import Auth from '../../../utils/auth';
 import { Redirect } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { ADD_ARTICLE } from '../../utils/mutations';
+import { ADD_ARTICLE } from '../../../utils/mutations';
 import CategoryControl from './CategoryControl';
 import DescriptionControl from './DescriptionControl';
 import TagForm from './TagForm';
 import ImageUploadControls from './ImageUploadControls';
 
 
-const AddItemForm = () => {
+const ViewOwnItem = ({article}) => {
   const [formState, setFormState] = useState(
     {
-      description: "",
-      category: "Top",
-      tags: [],
+      description: article.description,
+      category: article.category,
+      tags: [...article.tags],
       imageUploaded: false
     }
   );
-  const [submitArticle, { loading, called }] = useMutation(ADD_ARTICLE, { onCompleted: () => { return <Redirect to="/" /> } });
+  const [submitArticle, { loading: submittedArticleLoading }] = useMutation(ADD_ARTICLE, { onCompleted: () => { return <Redirect to="/" /> } });
   const toast = useToast();
 
+  // TODO fix authentication
   if (!Auth.loggedIn()) {
-    return <Redirect to="/" />;
-  }
-
-  if (called && !loading) {
-    return <Redirect to="/profile" />;
+    // return <Redirect to="/" />;
   }
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!(formState.imageUploaded || formState.description.trim())) {
+
+    if (!formState.imageUploaded || !formState.description.trim()) {
       toast({
         title: 'Cannot Add Item',
         description: "You need to upload an image or enter a description.",
@@ -46,12 +44,8 @@ const AddItemForm = () => {
 
     submitArticle({
       variables: {
-        category: formState.category,
-        description: formState.description,
-        tags: formState.tags
+        ...formState
       }
-    }).then(()=> {
-
     });
   };
 
@@ -67,11 +61,11 @@ const AddItemForm = () => {
 
       <TagForm formState={formState} setFormState={setFormState} />
 
-      <Button my={8} onClick={handleSubmit} isLoading={loading}>
+      <Button my={8} onClick={handleSubmit} isLoading={submittedArticleLoading}>
         Register New Item
       </Button>
     </VStack>
   );
 };
 
-export default AddItemForm;
+export default ViewOwnItem;

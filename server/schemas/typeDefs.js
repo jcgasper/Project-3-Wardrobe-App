@@ -43,7 +43,6 @@ const typeDefs = gql`
     addTempImage(filename: String!): User
     removeTempImage: User
     addArticle(
-      userId: ID!,
       category: ArticleCategory!,
       description: String,
       tags: [String],
