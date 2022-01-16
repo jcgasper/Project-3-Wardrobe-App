@@ -49,10 +49,10 @@ function App() {
             <Switch>
               <Route exact path='/' component={Landing} />
               <Route exact path='/signup' component={SignupForm} />
+              <Route exact path='/login' component={LoginForm} />
               <Route exact path='/profile' component={Profile} />
               <Route exact path='/profile/:category' component={FullCategory} />
               <Route exact path='/addItem' component={AddItemForm} />
-              <Route exact path='/login' component={LoginForm} />
               <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
             </Switch>
             </Container>

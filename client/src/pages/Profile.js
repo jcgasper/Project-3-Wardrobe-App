@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { VStack, StackDivider, Text, Heading } from '@chakra-ui/react';
 import ProfileCategory from '../components/ProfileCategory';
 import AddButton from '../components/AddButton';
@@ -10,7 +10,15 @@ function Profile() {
 
     const { userClothing, addClothing } = useClothingContext();
 
-    const { loading, error, data } = useQuery(GET_ME);
+    const [hasClothes, setHasClothes] = useState(true);
+
+    const { loading, error, data } = useQuery(GET_ME, {
+        onCompleted: function (data) {
+            if(data.clothing) {
+                addClothing(data.clothing)
+            }
+        }
+    });
 
     const categories = [
         {
@@ -64,36 +72,37 @@ function Profile() {
     ]
 
     useEffect(() => {
+
         if(!data) {
+            //setHasClothes(false);
             addClothing(categories);
-        } else {
-            addClothing(data.clothing);
         }
+
+        /* const clothes = data?.clothing || categories;
+        addClothing(clothes) */
     }, [data]);
+
+    if(error) {
+        return <Heading mt={10}>You aren't logged in!</Heading>
+    }
 
     if(loading) {
         return <Heading mt={10}>Searching Narnia...</Heading>
     }
 
-    /* if(error) {
-        return <Heading mt={10}>You aren't logged in!</Heading>
-    } */
-
-    /* if(!data.clothing) {
-        return <Heading pt={4}>You haven't added any clothing yet...</Heading>
-    } */
-
     return (
         <>
         <VStack spacing={5} p={4} divider={<StackDivider borderColor='gray.300' />}>
-            
-            {userClothing.map((category) => {
+            {(hasClothes) ? (
+            userClothing.map((category) => {
                 if(category.items.length) {
                     return (
                         <ProfileCategory category={category.type} items={category.items} key={category.type} />
                     )
                 }
-            })}
+            })) : (
+                <Heading mt={10}>Nothing Added Yet</Heading>
+            )}
         </VStack>
         <AddButton />
         </>
