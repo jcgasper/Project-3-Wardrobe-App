@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { 
     Box, 
     Text, 
@@ -13,10 +13,10 @@ import {
     AlertDialogOverlay, 
     IconButton } from '@chakra-ui/react';
 import { FaTrashAlt } from 'react-icons/fa';
+import { getDownloadURLForImageFile } from '../utils/imageUploads';
 import placeholder from '../images/no_image_uploaded.png';
 
 function ProfileBox({image, desc, id}) {
-
     const [isOpen, setIsOpen] = useState(false)
     const onClose = () => {
         setIsOpen(false)
@@ -28,14 +28,14 @@ function ProfileBox({image, desc, id}) {
     }
 
     const cancelRef = useRef()
-
-    //if no image is passed as prop or if image url is empty use placeholder instead
-    const articleImage = (image || image !== '' ) ? image : placeholder;
+    
+    const [imageURL, setImageURL] = useState('');
+    useEffect(() => { getDownloadURLForImageFile(image).then(setImageURL) }, [image]);
 
     return (
         <>
         <Box m={4} p={0} bg='pink.50' boxShadow="md" borderTop="1px" borderLeft="1px" borderColor="gray.200">
-            <Image src={(image !== '') ? image : placeholder} w='160px' h='256px'  />
+            <Image src={imageURL} w='160px' h='256px'  />
             <Flex justify='space-between' align='center' p={2}>
                 <Text textColor='#000022'>{(desc) ? `${desc}` : ' '}</Text>
                 <IconButton borderRadius='0' size='sm' icon={<FaTrashAlt />} aria-label='delete item' colorScheme='pink' onClick={() => setIsOpen(true)} />
