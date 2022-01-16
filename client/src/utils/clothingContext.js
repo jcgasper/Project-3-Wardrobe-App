@@ -9,6 +9,8 @@ export const ClothingProvider = ({children}) => {
     const [userClothing, setUserClothing] = useState([]);
 
     const addClothing = (clothing) => {
+
+        setUserClothing(clothing);
         //set up array of each category
         const categories = [
             {
@@ -35,7 +37,7 @@ export const ClothingProvider = ({children}) => {
 
         //iterate through and assign each article to a category
         clothing.forEach(item => {
-            switch(item.category) {
+            switch(item.category.toLowerCase()) {
                 case 'top':
                     categories[0].items.push(item);
                     break;
@@ -51,6 +53,8 @@ export const ClothingProvider = ({children}) => {
                 case 'footwear':
                     categories[4].items.push(item);
                     break;
+                default:
+                    return;
             }
         });
         //set state of all clothes broken down by category
