@@ -14,7 +14,7 @@ function Profile() {
         window.location.assign('/');
     }
 
-    const [currCategory, setCurrCategory] = useState('Bottom');
+    const [currCategory, setCurrCategory] = useState();
 
     const {loading, error, data} = useQuery(GET_BY_CATEGORY);
 
@@ -29,7 +29,9 @@ function Profile() {
     return (
         <>
         <VStack spacing={5} p={4} divider={<StackDivider borderColor='gray.300' />}>
-           {(!currCategory) ? (<Heading>Loading</Heading>) : clothes.map((item, index) => {
+           {(!currCategory) ? clothes.map((item, index) => {
+               return (<ProfileCategory category={item.category} items={item.clothing} key={index} />)
+           }) : clothes.map((item, index) => {
                if(item.category === currCategory) {
                    return (<FullCategory category={item.category} items={item.clothing} key={index} />)
                }

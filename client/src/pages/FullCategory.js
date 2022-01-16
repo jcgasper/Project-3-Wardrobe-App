@@ -20,7 +20,7 @@ function FullCategory({category, items}) {
         <Heading as='h1' textColor='pink.500' marginTop={8}>Your {category}</Heading>
         <Flex justify='space-around' flexWrap='wrap' my={4}>
             {items.map((item) => {
-                return <ProfileBox image={item.image} desc={item.description} key={item._id} />
+                return <ProfileBox image={item.imageFile} desc={item.description} key={item._id} />
             })}
         </Flex>
         <AddButton />

@@ -35,7 +35,7 @@ function ProfileBox({image, desc, id}) {
     return (
         <>
         <Box m={4} p={0} bg='pink.50' boxShadow="md" borderTop="1px" borderLeft="1px" borderColor="gray.200">
-            <Image src={(image ? image : placeholder)} w='160px' h='256px'  />
+            <Image src={(image !== '') ? image : placeholder} w='160px' h='256px'  />
             <Flex justify='space-between' align='center' p={2}>
                 <Text textColor='#000022'>{(desc) ? `${desc}` : ' '}</Text>
                 <IconButton borderRadius='0' size='sm' icon={<FaTrashAlt />} aria-label='delete item' colorScheme='pink' onClick={() => setIsOpen(true)} />

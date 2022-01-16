@@ -12,7 +12,6 @@ import AddItemForm from './pages/AddItemForm'
 import SignupForm from './components/SignupForm';
 import { ClothingProvider } from './utils/clothingContext';
 import ViewItem from './pages/ViewItem';
-import SignupForm from './components/SignupForm'
 import LoginForm from './components/LoginForm';
 const httpLink = createHttpLink({
   uri: '/graphql'
