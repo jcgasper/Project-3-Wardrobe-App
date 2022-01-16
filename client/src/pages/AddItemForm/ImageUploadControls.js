@@ -30,8 +30,8 @@ const ImageUploadControls = ({ formState, setFormState }) => {
   const { loading: getTempImageLoading, data: getTempImageData } = useQuery(GET_TEMP_IMAGE_FILE);
   const toast = useToast();
 
-  if (getTempImageData?.user.tempImageFile && !(imageURL.includes(getTempImageData.user.tempImageFile))) {
-    getDownloadURLForImageFile( getTempImageData.user.tempImageFile)
+  if (getTempImageData?.tempImageFile && !(imageURL.includes(getTempImageData.tempImageFile))) {
+    getDownloadURLForImageFile(getTempImageData.tempImageFile)
       .then(url => {
         setFormState({ ...formState, imageUploaded: true })
         setImageURL(url);

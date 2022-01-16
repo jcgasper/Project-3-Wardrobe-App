@@ -20,4 +20,4 @@ async function deleteImageFromFirebase(filename) {
   return bucket.deleteFiles({prefix: filename, maxResults: 1});
 }
 
-module.export = { deleteImageFromFirebase };
+module.exports = { deleteImageFromFirebase };

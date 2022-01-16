@@ -20,18 +20,20 @@ const AddItemForm = () => {
       imageUploaded: false
     }
   );
-  const [submitArticle, { loading: submittedArticleLoading }] = useMutation(ADD_ARTICLE, { onCompleted: () => { return <Redirect to="/" /> } });
+  const [submitArticle, { loading, called }] = useMutation(ADD_ARTICLE, { onCompleted: () => { return <Redirect to="/" /> } });
   const toast = useToast();
 
-  // TODO fix authentication
   if (!Auth.loggedIn()) {
-    // return <Redirect to="/" />;
+    return <Redirect to="/" />;
+  }
+
+  if (called && !loading) {
+    return <Redirect to="/profile" />;
   }
   
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    if (!formState.imageUploaded || !formState.description.trim()) {
+    if (!(formState.imageUploaded || formState.description.trim())) {
       toast({
         title: 'Cannot Add Item',
         description: "You need to upload an image or enter a description.",
@@ -44,8 +46,12 @@ const AddItemForm = () => {
 
     submitArticle({
       variables: {
-        ...formState
+        category: formState.category,
+        description: formState.description,
+        tags: formState.tags
       }
+    }).then(()=> {
+
     });
   };
 
@@ -61,7 +67,7 @@ const AddItemForm = () => {
 
       <TagForm formState={formState} setFormState={setFormState} />
 
-      <Button my={8} onClick={handleSubmit} isLoading={submittedArticleLoading}>
+      <Button my={8} onClick={handleSubmit} isLoading={loading}>
         Register New Item
       </Button>
     </VStack>
