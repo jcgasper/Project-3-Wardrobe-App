@@ -32,6 +32,12 @@ const typeDefs = gql`
     user: User
   }
 
+  enum ImageAction {
+    none
+    update
+    delete
+  }
+
   type Query {
     user(userId: ID!): User
     articles(userId: ID!): [Article]
@@ -54,7 +60,7 @@ const typeDefs = gql`
       category: ArticleCategory,
       description: String,
       tags: [String],
-      newImage: Boolean
+      imageAction: ImageAction
     ): Article
     removeArticle(articleId: ID!): Article
   }

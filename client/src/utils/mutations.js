@@ -59,3 +59,11 @@ export const ADD_ARTICLE = gql`
     }
   }
 `;
+
+export const UPDATE_ARTICLE = gql`
+  mutation updateArticle($articleId: ID!, $category: ArticleCategory, $description: String, $tags: [String], $imageAction: ImageAction) {
+    updateArticle(articleId: $articleId, category: $category, description: $description, tags: $tags, imageAction: $imageAction) {
+      _id
+    }
+  }
+`
