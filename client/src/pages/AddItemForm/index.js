@@ -54,8 +54,8 @@ const AddItemForm = () => {
   };
 
   return (
-    <VStack padding={4} spacing={6} align="stretch" mb={10}>
-      <Heading>Add Item to Your Wardrobe</Heading>
+    <VStack padding={4} spacing={6} align="stretch" mt={8} mb={10}>
+      <Heading textColor='pink.500'>Add Item to Your Wardrobe</Heading>
 
       <CategoryControl setFormState={setFormState} formState={formState} />
 
@@ -66,10 +66,23 @@ const AddItemForm = () => {
       <TagForm formState={formState} setFormState={setFormState} />
 
       <HStack spacing={4}>
-        <Button my={8} onClick={handleSubmit} isLoading={loading}>
+        <Button
+          my={8}
+          colorScheme='pink'
+          borderRadius={0}
+          onClick={handleSubmit}
+          isLoading={loading}
+        >
           Register New Item
         </Button>
-        <Button as={Link} to="/profile">Go Back</Button>
+        <Button
+          as={Link}
+          to="/profile"
+          variant='link'
+          colorScheme='pink'
+        >
+          Go Back
+        </Button>
       </HStack>
     </VStack>
   );

@@ -8,13 +8,16 @@ import {
 const DescriptionControl = ({ formState, setFormState }) => {
   return (
     <FormControl>
-      <FormLabel htmlFor="description">Description</FormLabel>
+      <FormLabel htmlFor="description" fontSize='lg' fontWeight='bold' textColor='pink.700'>Description</FormLabel>
       <Input
         id="description"
+        borderRadius={0}
+        focusBorderColor='pink.400'
+        borderColor='pink.700'
         placeholder="Type a description of your item (optional)"
         value={formState.description}
         onChange={(e) => setFormState({ ...formState, description: e.target.value, hasChanges: true })}
-        maxLength="100"
+        maxLength="50"
       />
     </FormControl>
   );

@@ -78,8 +78,8 @@ const ImageUploadControls = ({ formState, setFormState }) => {
 
   return (
     <Box>
-      <FormControl mb={1}>
-        <FormLabel htmlFor="fileUpload">Picture</FormLabel>
+      <FormControl mb={2}>
+        <FormLabel htmlFor="fileUpload" fontSize='lg' fontWeight='bold' textColor='pink.700'>Picture</FormLabel>
         <ButtonGroup>
           <FileUploadButton
             placeholder="Click here"
@@ -89,14 +89,21 @@ const ImageUploadControls = ({ formState, setFormState }) => {
             isLoading={isUploading || addTempImageLoading}
           >Click to Upload</FileUploadButton>
 
-          <IconButton aria-label='Discard Image' isLoading={removeTempImageLoading} icon={<FaTrash />} isDisabled={imageURL === DEFAULT_IMAGE_LOCATION} onClick={discardImageHandler} />
+          <IconButton 
+            aria-label='Discard Image'
+            borderRadius={0}
+            variant='ghost'
+            isLoading={removeTempImageLoading}
+            icon={<FaTrash />}
+            isDisabled={imageURL === DEFAULT_IMAGE_LOCATION} onClick={discardImageHandler}
+          />
         </ButtonGroup>
       </FormControl>
       {
         (isUploading || addTempImageLoading || removeTempImageLoading || getTempImageLoading)
           ?
           <Center w="320px" h="512px" border={1} boxShadow="md">
-            <Spinner size='xl' />
+            <Spinner size='xl' color='pink.800' />
           </Center>
           :
           <Image maxH="512px" border={1} boxShadow="md" src={imageURL} />
