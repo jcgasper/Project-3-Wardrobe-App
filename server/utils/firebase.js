@@ -1,6 +1,7 @@
 //const path = require('path');
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getStorage } = require('firebase-admin/storage');
+require('dotenv').config();
 const serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS); //require(path.join('..', process.env.GOOGLE_APPLICATION_CREDENTIALS));
 
 initializeApp({
