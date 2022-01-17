@@ -22,31 +22,31 @@ const resolvers = {
       return await User.findById(context.user._id);
     },
     categories: async (parent, args, context) => {
-      if(!context.user) {
+      if (!context.user) {
         throw new AuthenticationError('You need to be logged in!');
       }
 
-      const clothes = await Article.find({owner: context.user._id});
+      const clothes = await Article.find({ owner: context.user._id });
 
       let categories = [
-        {category: 'Top', clothing: []},
-        {category: 'Bottom', clothing: []},
-        {category: 'Outerwear', clothing: []},
-        {category: 'Footwear', clothing: []},
-        {category: 'Accessory', clothing: []},
+        { category: 'Top', clothing: [] },
+        { category: 'Bottom', clothing: [] },
+        { category: 'Outerwear', clothing: [] },
+        { category: 'Footwear', clothing: [] },
+        { category: 'Accessory', clothing: [] },
       ]
 
       clothes.forEach(article => {
         switch (article.category) {
-          case 'Top': categories[0].clothing.push(article); 
+          case 'Top': categories[0].clothing.push(article);
             break;
-          case 'Bottom': categories[1].clothing.push(article); 
+          case 'Bottom': categories[1].clothing.push(article);
             break;
-          case 'Outerwear': categories[2].clothing.push(article); 
+          case 'Outerwear': categories[2].clothing.push(article);
             break;
-          case 'Footwear': categories[3].clothing.push(article); 
+          case 'Footwear': categories[3].clothing.push(article);
             break;
-          case 'Accessory': categories[4].clothing.push(article); 
+          case 'Accessory': categories[4].clothing.push(article);
             break;
           default: return;
         }
@@ -59,7 +59,7 @@ const resolvers = {
   },
   User: {
     clothing: async (parent) => {
-      return await Article.find({_id: {$in: (parent.clothing)}});
+      return await Article.find({ _id: { $in: (parent.clothing) } });
     }
   },
   Article: {
@@ -139,9 +139,10 @@ const resolvers = {
         throw new AuthenticationError('You need to be logged in!');
       }
       // const [user, article] = await Promise.all([User.findById(context.user._id), Article.findById(articleId)]);
-      const article = Article.findById(articleId).populate('owner');
-      const user = article.owner
-      if (user.id !== context.user._id) {
+      const article = await Article.findById(articleId).populate('owner');
+      const user = article.owner;
+
+      if (article.owner.id !== context.user._id) {
         throw new AuthenticationError('That item does not belong to you!');
       }
 
@@ -170,12 +171,12 @@ const resolvers = {
       if (article.owner.id !== context.user._id) {
         throw new AuthenticationError(`That item does not belong to you!`);
       }
-      
+
       if (article.imageFile) deleteImageFromFirebase(article.imageFile);
-      
+
       // TODO check if there is a better way with atomic transaction enforcement
       await Promise.all([
-        User.findByIdAndUpdate(context.user._id, {$pull: {clothing: articleId}}),
+        User.findByIdAndUpdate(context.user._id, { $pull: { clothing: articleId } }),
         Article.findByIdAndDelete(articleId)
       ]);
       return article;
