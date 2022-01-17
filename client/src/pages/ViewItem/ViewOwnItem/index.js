@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { VStack, Heading, Button, useToast, HStack } from "@chakra-ui/react";
 import { useState } from "react";
 import Auth from '../../../utils/auth';
@@ -9,17 +9,19 @@ import DescriptionControl from './DescriptionControl';
 import TagForm from './TagForm';
 import ImageUploadControls from './ImageUploadControls';
 import { UPDATE_ARTICLE } from '../../../utils/mutations';
+import DeleteButton from './DeleteButton';
 
 
-const ViewOwnItem = ({article}) => {
+const ViewOwnItem = ({ article }) => {
   const initialFormState = {
     description: article.description,
     category: article.category,
     tags: [...article.tags],
     imageAction: 'none',
+    hasChanges: false
   }
   const [formState, setFormState] = useState(initialFormState);
-  const [submitArticle, { loading, called }] = useMutation(UPDATE_ARTICLE, { onCompleted: () => { window.location.assign('/profile'); } });
+  const [submitArticle, { loading }] = useMutation(UPDATE_ARTICLE, { onCompleted: () => { window.location.assign('/profile'); } });
   const toast = useToast();
 
   if (!Auth.loggedIn()) {
@@ -29,16 +31,17 @@ const ViewOwnItem = ({article}) => {
   // if (called && !loading) {
   //   return <Redirect to="/profile" />;
   // }
-  
+
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!(
-          (article.imageFile && (!formState.discardImage))
-          || formState.imageAction !== 'none' 
-          || formState.description.trim()
-        )
-      )
-    {
+      (article.imageFile && (!formState.discardImage))
+      || formState.imageAction !== 'none'
+      || formState.description.trim()
+    )
+    ) {
       toast({
         title: 'Cannot Update Item',
         description: "Your item must have an image or a description.",
@@ -70,11 +73,17 @@ const ViewOwnItem = ({article}) => {
 
       <TagForm formState={formState} setFormState={setFormState} />
 
-      <HStack spacing={4}>
-        <Button my={8} onClick={handleSubmit} isLoading={loading}>
+      <HStack spacing={4} my={8}>
+        <Button onClick={handleSubmit} isLoading={loading} isDisabled={!formState.hasChanges}>
           Update Item
         </Button>
-        <Button as={Link} to="/profile">Go Back without Updating</Button>
+        <Button onClick={() => setFormState(initialFormState)} isDisabled={!formState.hasChanges}>
+          Reset Form
+        </Button>
+        <DeleteButton article={article} />
+        <Button as={Link} to="/profile">
+          Go Back without Updating
+        </Button>
       </HStack>
 
     </VStack>
