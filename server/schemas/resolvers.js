@@ -20,7 +20,42 @@ const resolvers = {
         throw new AuthenticationError('You need to be logged in!');
       }
       return await User.findById(context.user._id);
-    }
+    },
+    categories: async (parent, args, context) => {
+      if(!context.user) {
+        throw new AuthenticationError('You need to be logged in!');
+      }
+
+      const clothes = await Article.find({owner: context.user._id});
+
+      let categories = [
+        {category: 'Top', clothing: []},
+        {category: 'Bottom', clothing: []},
+        {category: 'Outerwear', clothing: []},
+        {category: 'Footwear', clothing: []},
+        {category: 'Accessory', clothing: []},
+      ]
+
+      clothes.forEach(article => {
+        switch (article.category) {
+          case 'Top': categories[0].clothing.push(article); 
+            break;
+          case 'Bottom': categories[1].clothing.push(article); 
+            break;
+          case 'Outerwear': categories[2].clothing.push(article); 
+            break;
+          case 'Footwear': categories[3].clothing.push(article); 
+            break;
+          case 'Accessory': categories[4].clothing.push(article); 
+            break;
+          default: return;
+        }
+      });
+
+      categories = categories.filter(el => el.clothing.length > 0);
+
+      return categories;
+    },
   },
   User: {
     clothing: async (parent) => {
@@ -106,7 +141,7 @@ const resolvers = {
       // const [user, article] = await Promise.all([User.findById(context.user._id), Article.findById(articleId)]);
       const article = Article.findById(articleId).populate('owner');
       const user = article.owner
-      if (user._id != context.user._id) {
+      if (user.id !== context.user._id) {
         throw new AuthenticationError('That item does not belong to you!');
       }
 
@@ -132,8 +167,8 @@ const resolvers = {
       }
 
       const article = await Article.findById(articleId).populate('owner');
-      if (article.owner._id !== context.user._id) {
-        throw new AuthenticationError('That item does not belong to you!');
+      if (article.owner.id !== context.user._id) {
+        throw new AuthenticationError(`That item does not belong to you!`);
       }
       
       if (article.imageFile) deleteImageFromFirebase(article.imageFile);
