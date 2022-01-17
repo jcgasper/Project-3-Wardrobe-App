@@ -7,7 +7,7 @@ import {
 
 const CategoryControl = ({ category }) => {
   return (
-    <FormControl isRequired>
+    <FormControl>
       <FormLabel htmlFor="category">Item Category</FormLabel>
       <Text id="category">{category}</Text>
     </FormControl>
