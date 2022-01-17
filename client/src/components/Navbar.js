@@ -82,7 +82,7 @@ const AppNavbar = (props) => {
           pt={[4, 4, 0, 0]}
         >
           <MenuItem to="/">Home</MenuItem>
-          <MenuItem to="/Profile" pointer={Auth.loggedIn() ? 'auto' : 'none'}>My Wardrobe </MenuItem>
+          <MenuItem to="/profile" pointer={Auth.loggedIn() ? 'auto' : 'none'}>My Wardrobe </MenuItem>
           <MenuItem to="/addItem" pointer={Auth.loggedIn() ? 'auto' : 'none'}>Add Item </MenuItem>
           {(!Auth.loggedIn()) ? 
           <>

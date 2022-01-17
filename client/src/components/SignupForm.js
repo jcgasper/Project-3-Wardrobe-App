@@ -2,23 +2,23 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 import {
-    Flex,
-    Box,
-    FormControl,
-    FormLabel,
-    Input,
-    InputGroup,
-    HStack,
-    InputRightElement,
-    Stack,
-    Button,
-    Heading,
-    Text,
-    useColorModeValue,
-    Link,
-    useToast
-  } from '@chakra-ui/react';
-import {Link as ReactLink } from 'react-router-dom';
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  InputGroup,
+  HStack,
+  InputRightElement,
+  Stack,
+  Button,
+  Heading,
+  Text,
+  useColorModeValue,
+  Link,
+  useToast
+} from '@chakra-ui/react';
+import { Link as ReactLink } from 'react-router-dom';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import Auth from '../utils/auth';
 
@@ -31,7 +31,7 @@ const SignupForm = () => {
   // set state for alert
   //const [showAlert, setShowAlert] = useState(false);
   // set state for password visibility
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const toast = useToast();
   const handleInputChange = (event) => {
@@ -42,9 +42,9 @@ const SignupForm = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    if (!userFormData.email.trim() || !userFormData.password.trim()) {
+    if (!userFormData.displayname.trim() || !userFormData.email.trim() || !userFormData.password.trim()) {
       toast({
-        title: "You must enter a email address and password ",
+        title: "You must enter a display name, email address, password ",
         status: "warning",
         duration: 5000,
         isClosable: true,
@@ -53,7 +53,7 @@ const SignupForm = () => {
     }
 
     // check if form has everything (as per react-bootstrap docs)
-    const form = event.currentTarget;
+    // const form = event.currentTarget;
     // if (form.checkValidity() === false) {
     //   event.preventDefault();
     //   event.stopPropagation();
@@ -77,13 +77,14 @@ const SignupForm = () => {
   };
 
   return (
-      <Flex
+    <Flex
       as="form"
       minH={"30vh"}
       align={"center"}
       justify={"center"}
       bg={useColorModeValue("gray.50", "gray.800")}
-      onSubmit={handleFormSubmit}>
+      onSubmit={handleFormSubmit}
+    >
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'} textAlign={'center'}>
@@ -103,29 +104,29 @@ const SignupForm = () => {
               <Box>
                 <FormControl id="displayname" isRequired>
                   <FormLabel>Display Name</FormLabel>
-                  <Input  
-                  type="text"
-                  onChange={handleInputChange}
-                  value={userFormData.displayname}
-                  name="displayname"/>
+                  <Input
+                    type="text"
+                    onChange={handleInputChange}
+                    value={userFormData.displayname}
+                    name="displayname" />
                 </FormControl>
               </Box>
             </HStack>
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
               <Input
-                      type="email"
-                      onChange={handleInputChange}
-                      value={userFormData.email} 
-                      name="email" />
+                type="email"
+                onChange={handleInputChange}
+                value={userFormData.email}
+                name="email" />
             </FormControl>
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? 'text' : 'password'} 
-                       onChange={handleInputChange}
-                       value={userFormData.password}
-                       name="password" />
+                <Input type={showPassword ? 'text' : 'password'}
+                  onChange={handleInputChange}
+                  value={userFormData.password}
+                  name="password" />
                 <InputRightElement h={'full'}>
                   <Button
                     variant={'ghost'}
@@ -139,6 +140,7 @@ const SignupForm = () => {
             </FormControl>
             <Stack spacing={10} pt={2}>
               <Button
+                type='submit'
                 loadingText="Submitting"
                 size="lg"
                 bg={'blue.400'}
