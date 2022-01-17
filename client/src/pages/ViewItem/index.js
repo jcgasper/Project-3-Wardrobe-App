@@ -22,7 +22,7 @@ const ViewItem = () => {
     )
   }
   
-  if (!Auth.loggedIn() || Auth.getProfile().data._id !== article.owner._id) {
+  if (!Auth.loggedIn() || Auth.getProfile().data._id != article.owner._id) {
     return <ViewOthersItem article={article} />
   }
   return <ViewOwnItem article={article} />
