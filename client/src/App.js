@@ -4,14 +4,14 @@ import { setContext } from '@apollo/client/link/context'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Container } from '@chakra-ui/react';
-import Navbar from './components/Navbar';
 import Header from './components/Header';
 import Landing from './pages/Landing'
 import Profile from './pages/Profile';
 import FullCategory from './pages/FullCategory';
 import AddItemForm from './pages/AddItemForm'
+import SignupForm from './components/SignupForm';
+import { ClothingProvider } from './utils/clothingContext';
 import ViewItem from './pages/ViewItem';
-import SignupForm from './components/SignupForm'
 import LoginForm from './components/LoginForm';
 const httpLink = createHttpLink({
   uri: '/graphql'
@@ -38,14 +38,18 @@ function App() {
     <ChakraProvider>
       <ApolloProvider client={client}>
         
+        
         <Router>
           <>
+          <ClothingProvider>
             {/* <Navbar /> */}
             <Header />
             <Container maxW="container.lg">
             
             <Switch>
               <Route exact path='/' component={Landing} />
+              <Route exact path='/signup' component={SignupForm} />
+              <Route exact path='/login' component={LoginForm} />
               <Route exact path='/profile' component={Profile} />
               <Route exact path='/profile/:category' component={FullCategory} />
               <Route exact path='/addItem' component={AddItemForm} />
@@ -55,9 +59,10 @@ function App() {
               <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
             </Switch>
             </Container>
-            
+          </ClothingProvider>
           </>
         </Router>
+        
       </ApolloProvider>
     </ChakraProvider>
   );

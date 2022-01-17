@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link as ReactLink } from 'react-router-dom';
-import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
+import { Navbar, Nav, Modal, Tab } from 'react-bootstrap';
 import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
 import Auth from '../utils/auth';
-import { Link, Box, Flex, Text, Button, Stack } from "@chakra-ui/react";
+import { Link, Box, Flex, Text, Button, Stack, Container } from "@chakra-ui/react";
 
 //import Logo from "./Logo";
 
@@ -16,12 +16,14 @@ const AppNavbar = (props) => {
   
     return (
       <NavBarContainer {...props} bg='pink.100'>
+        <Container maxW='container.lg' display='flex' justify='center'>
         {/* <Logo
           w="100px"
           color={["white", "white", "primary.500", "primary.500"]}
         /> */}
         <MenuToggle toggle={toggle} isOpen={isOpen} />
         <MenuLinks isOpen={isOpen} />
+        </Container>
       </NavBarContainer>
     );
   };

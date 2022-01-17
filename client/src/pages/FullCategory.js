@@ -1,63 +1,32 @@
 import React from 'react';
-import { Heading, Container, Flex } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
+import { Heading, Flex, Text, Box } from '@chakra-ui/react';
 import ProfileBox from '../components/ProfileBox';
 import AddButton from '../components/AddButton';
 
-function FullCategory() {
+function FullCategory({category, items, setCurrCategory}) {
 
-    const { category } = useParams();
+    const goBack = () => {
+        setCurrCategory(null);
+    }
 
-    const categories = [
-        {
-            name: 'Tops',
-            id: 1,
-            items: [
-                {
-                    image: '',
-                    description: 't-shirt'
-                },
-                {
-                    image: 'https://via.placeholder.com/160x256',
-                    description: 'tank top'
-                },
-                {
-                    image: 'https://via.placeholder.com/160x256',
-                    description: 'dress shirt'
-                },
-                {
-                    image: 'https://via.placeholder.com/160x256',
-                    description: 'sweater'
-                },
-                {
-                    image: '',
-                    description: 'jacket'
-                },
-                {
-                    image: 'https://via.placeholder.com/160x256',
-                    description: 'coat'
-                },
-                {
-                    image: 'https://via.placeholder.com/160x256',
-                    description: 'vest'
-                },
-                {
-                    image: 'https://via.placeholder.com/160x256',
-                    description: 'hoodie'
-                },
-            ]
-        }];
+    //if no items, say they don't have any articles in there
+    if(!items.length) {
+        return <Heading mt={10}>You haven't added any {category.toLowerCase()}</Heading>
+    }
 
     return (
-        <>
-        <Heading as='h1' textColor='pink.500' marginTop={8}>{category}</Heading>
-        <Flex justify='space-around' flexWrap='wrap' my={4}>
-            {categories[0].items.map((item) => {
-                return <ProfileBox image={item.image} desc={item.description} />
-            })}
-        </Flex>
-        <AddButton />
-        </>
+        <Box minW='full'>
+            
+            <Heading as='h1' textColor='pink.500' marginTop={8}>Your {category}</Heading>
+            <Text onClick={goBack} cursor='pointer'>&#8592;  Back to Profile</Text>
+            <Flex justify='start' flexWrap='wrap' gap={6} my={4}>
+                {items.map((item) => {
+                    return <ProfileBox image={item.imageFile} desc={item.description} id={item._id} key={item._id} />
+                })}
+            </Flex>
+            <Text onClick={goBack} cursor='pointer'>&#8592;  Back to Profile</Text>
+            <AddButton />
+        </Box>
     )
 }
 

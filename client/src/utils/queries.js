@@ -41,3 +41,16 @@ export const GET_TEMP_IMAGE_FILE = gql`
     }
   }
 `;
+
+export const GET_BY_CATEGORY = gql`
+  query categories {
+    categories{
+      category
+      clothing {
+        description
+        imageFile
+        _id
+      }
+    }
+  }  
+`;

@@ -32,11 +32,17 @@ const typeDefs = gql`
     user: User
   }
 
+  type Category {
+    category: ArticleCategory
+    clothing: [Article]
+  }
+
   type Query {
     user(userId: ID!): User
     articles(userId: ID!): [Article]
     article(articleId: ID!): Article
     me: User
+    categories: [Category]
   }
 
   type Mutation {
