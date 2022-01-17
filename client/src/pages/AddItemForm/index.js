@@ -20,7 +20,7 @@ const AddItemForm = () => {
       imageUploaded: false
     }
   );
-  const [submitArticle, { loading, called }] = useMutation(ADD_ARTICLE, { onCompleted: () => { window.location.assign('/profile'); } });
+  const [submitArticle, { loading }] = useMutation(ADD_ARTICLE, { onCompleted: () => { window.location.assign('/profile'); } });
   const toast = useToast();
 
   if (!Auth.loggedIn()) {
