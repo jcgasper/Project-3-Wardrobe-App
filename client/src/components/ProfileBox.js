@@ -13,7 +13,8 @@ import {
     AlertDialogOverlay, 
     IconButton,
     Grid,
-    GridItem } from '@chakra-ui/react';
+    GridItem,
+    Progress } from '@chakra-ui/react';
 import { FaTrashAlt } from 'react-icons/fa';
 import { useMutation } from "@apollo/client";
 import { getDownloadURLForImageFile } from '../utils/imageUploads';
@@ -50,7 +51,7 @@ function ProfileBox({image, desc, id}) {
         <Box p={0} bg='pink.50' boxShadow="md" borderTop="1px" borderLeft="1px" borderColor="gray.200" maxW='210px'>
           
           <ReactLink to={`/viewItem/${id}`}>
-            <Image src={imageURL} fallbackSrc="https://via.placeholder.com/160x256" w='210px' h='280px' fit='cover' alt={desc} />
+            <Image src={imageURL} fallbackSrc='https://via.placeholder.com/210x280?text=Loading...' w='210px' h='280px' fit='cover' alt={desc} />
           </ReactLink>
           
           <Grid templateColumns='1fr minMax(150px, 1fr)' pr={2} gap={2} maxW='160px'>
