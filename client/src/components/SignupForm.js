@@ -79,7 +79,7 @@ const SignupForm = () => {
   return (
       <Flex
       as="form"
-      minH={"100vh"}
+      minH={"30vh"}
       align={"center"}
       justify={"center"}
       bg={useColorModeValue("gray.50", "gray.800")}

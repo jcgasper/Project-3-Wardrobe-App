@@ -5,19 +5,21 @@ import AddButton from '../components/AddButton';
 
 function FullCategory({category, items, setCurrCategory}) {
 
+    const categoryName = (category === 'Top' || category === 'Bottom') ? category + 's' : (category === 'Accessory') ? 'Accessories' : category;
+
     const goBack = () => {
         setCurrCategory(null);
     }
 
     //if no items, say they don't have any articles in there
     if(!items.length) {
-        return <Heading mt={10}>You haven't added any {category.toLowerCase()}</Heading>
+        return <Heading mt={10}>You haven't added any {categoryName.toLowerCase()}</Heading>
     }
 
     return (
         <Box minW='full'>
             
-            <Heading as='h1' textColor='pink.500' marginTop={8}>Your {category}</Heading>
+            <Heading as='h1' textColor='pink.500' marginTop={8}>Your {categoryName}</Heading>
             <Text onClick={goBack} cursor='pointer'>&#8592;  Back to Profile</Text>
             <Flex justify='start' flexWrap='wrap' gap={6} my={4}>
                 {items.map((item) => {

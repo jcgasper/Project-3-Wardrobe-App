@@ -11,7 +11,7 @@ import { Link, Box, Flex, Text, Button, Stack, Container } from "@chakra-ui/reac
 
 const AppNavbar = (props) => {
     const [isOpen, setIsOpen] = React.useState(false);
-
+    const loggedIn = Auth.loggedIn();
     const toggle = () => setIsOpen(!isOpen);
   
     return (
@@ -58,13 +58,13 @@ const AppNavbar = (props) => {
     );
   };
   
-  const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
+  const MenuItem = ({ children, isLast, to = "/", pointer, ...rest }) => {
     return (
-      <ReactLink to={to}>
-        <Text display="block" {...rest} textColor='pink.800'>
+      <Link as={ReactLink} to={to} pointerEvents={pointer}>
+        <Text display="block" {...rest} textColor='pink.800'  fontSize='lg'>
           {children}
         </Text>
-      </ReactLink>
+      </Link>
     );
   };
   
@@ -82,10 +82,11 @@ const AppNavbar = (props) => {
           pt={[4, 4, 0, 0]}
         >
           <MenuItem to="/">Home</MenuItem>
-          <MenuItem to="/Profile">My Wardrobe </MenuItem>
-          <MenuItem to="/addItem">Add Item </MenuItem>
-          <MenuItem to="/">Search Wardrobe </MenuItem>
-          <MenuItem to="/signup" isLast>
+          <MenuItem to="/Profile" pointer={Auth.loggedIn() ? 'auto' : 'none'}>My Wardrobe </MenuItem>
+          <MenuItem to="/addItem" pointer={Auth.loggedIn() ? 'auto' : 'none'}>Add Item </MenuItem>
+          {(!Auth.loggedIn()) ? 
+          <>
+            <MenuItem to="/login" pointer='auto'>
             <Button
               size="sm"
               rounded="md"
@@ -94,10 +95,44 @@ const AppNavbar = (props) => {
               _hover={{
                 bg: ["primary.100", "primary.100", "primary.600", "primary.600"]
               }}
+              fontSize='lg'
             >
-              Login/Signup
+              Login
             </Button>
           </MenuItem>
+          <MenuItem to="/signup" pointer='auto' isLast>
+          <Button
+            size="sm"
+            rounded="md"
+            color={["primary.500", "primary.500", "pink.800", "pink.800"]}
+            bg={["white", "white", "primary.500", "primary.500"]}
+            _hover={{
+              bg: ["primary.100", "primary.100", "primary.600", "primary.600"]
+            }}
+            fontSize='lg'
+          >
+            Signup
+          </Button>
+        </MenuItem>
+          </>
+           :
+          <MenuItem pointer='auto' isLast>
+            <Button
+          size="sm"
+          rounded="md"
+          color={["primary.500", "primary.500", "pink.800", "pink.800"]}
+          bg={["white", "white", "primary.500", "primary.500"]}
+          _hover={{
+            bg: ["primary.100", "primary.100", "primary.600", "primary.600"]
+          }}
+          fontSize='lg'
+          onClick={() => Auth.logout()}
+        >
+          Logout
+        </Button>
+          </MenuItem>
+          
+          }
         </Stack>
       </Box>
     );
