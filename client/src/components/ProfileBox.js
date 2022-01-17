@@ -12,7 +12,9 @@ import {
     AlertDialogHeader,
     AlertDialogContent,
     AlertDialogOverlay, 
-    IconButton } from '@chakra-ui/react';
+    IconButton,
+    Grid,
+    GridItem } from '@chakra-ui/react';
 import { FaTrashAlt } from 'react-icons/fa';
 import { useMutation } from "@apollo/client";
 import { getDownloadURLForImageFile } from '../utils/imageUploads';
@@ -46,17 +48,22 @@ function ProfileBox({image, desc, id}) {
 
     return (
         <>
-        <Box p={0} bg='pink.50' boxShadow="md" borderTop="1px" borderLeft="1px" borderColor="gray.200" maxW='160px'>
-          <Box px={2} py={1}>
-            <Text as={ReactLink} to={`/viewItem/${id}`} textColor='#000022'>{(desc) ? `${desc}` : ' '}</Text>
-          </Box>
+        <Box p={0} bg='pink.50' boxShadow="md" borderTop="1px" borderLeft="1px" borderColor="gray.200" maxW='210px'>
+          
           <ReactLink to={`/viewItem/${id}`}>
-            <Image src={imageURL} fallbackSrc="https://via.placeholder.com/160x256" w='160px' h='256px' fit='cover' alt={desc} />
+            <Image src={imageURL} fallbackSrc="https://via.placeholder.com/160x256" w='210px' h='240px' fit='cover' alt={desc} />
           </ReactLink>
           
-          <Flex justify='start' align='center' p={2}>  
+          <Grid templateColumns='1fr minMax(150px, 1fr)' pr={2} gap={2} maxW='160px'>
+            <GridItem>
               <IconButton borderRadius='0' size='sm' icon={<FaTrashAlt />} aria-label='delete item' colorScheme='pink' onClick={() => setIsOpen(true)} />
-          </Flex>
+            </GridItem>
+            
+            <GridItem display=''>
+              <Text lineHeight='2em' noOfLines={1} as={ReactLink} to={`/viewItem/${id}`} overflow='clip' textColor='#000022'>{(desc) ? `${desc}` : ' '}</Text>
+            </GridItem>
+              
+          </Grid>
         </Box>
         <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose} >
         <AlertDialogOverlay>
