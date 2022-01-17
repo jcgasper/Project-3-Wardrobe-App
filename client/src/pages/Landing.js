@@ -6,7 +6,7 @@ import { FaCloudUploadAlt, FaWifi } from 'react-icons/fa'
 
 function Landing() {
     return (
-        <VStack maxW='container.lg' spacing={10}>
+        <VStack maxW='container.lg' spacing={10} mb={20}>
             <Box w='full' height='25rem' marginTop='5em' backgroundImage={heroImage} backgroundPosition='center' backgroundSize='cover'>
                 <Flex px={4} w='full' height='full' justify='center' align='center' flexDir='column' gap={5}>
                     <Heading p={5} bg='gray.50' textColor='pink.500'>Build your online wardrobe</Heading>

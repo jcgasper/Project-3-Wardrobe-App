@@ -13,7 +13,12 @@ function FullCategory({category, items, setCurrCategory}) {
 
     //if no items, say they don't have any articles in there
     if(!items.length) {
-        return <Heading mt={10}>You haven't added any {categoryName.toLowerCase()}</Heading>
+        return (
+        <>
+            <Heading mt={10}>You haven't added any {categoryName.toLowerCase()}</Heading>
+            <Text onClick={goBack} cursor='pointer'>&#8592;  Back to Profile</Text>
+        </>
+        )
     }
 
     return (

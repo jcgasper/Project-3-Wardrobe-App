@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { VStack, StackDivider, Text, Heading, Progress } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { VStack, StackDivider, Heading, Progress } from '@chakra-ui/react';
 import ProfileCategory from '../components/ProfileCategory';
 import FullCategory from './FullCategory';
 import AddButton from '../components/AddButton';
@@ -17,7 +17,8 @@ function Profile() {
     const [currCategory, setCurrCategory] = useState();
 
     const {loading, error, data} = useQuery(GET_BY_CATEGORY, {
-        fetchPolicy: 'cache-and-network'
+        fetchPolicy: 'cache-and-network',
+        onCompleted: (data) => {console.log(data)}
     });
 
     if(loading) {
@@ -34,7 +35,7 @@ function Profile() {
     return (
         <>
         <VStack spacing={5} p={4} divider={<StackDivider borderColor='gray.300' />}>
-           {(!currCategory) ? clothes.map((item, index) => {
+           {(!clothes.length) ? <Heading>You've got no clothes! Why don't you add some?</Heading> : (!currCategory) ? clothes.map((item, index) => {
                return (<ProfileCategory category={item.category} items={item.clothing} key={index} setCurrCategory={setCurrCategory} />)
            }) : clothes.map((item, index) => {
                if(item.category === currCategory) {
