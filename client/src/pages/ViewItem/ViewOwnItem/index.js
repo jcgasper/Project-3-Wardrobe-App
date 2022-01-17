@@ -1,40 +1,47 @@
 import React from "react";
-import { VStack, Heading, Button, useToast } from "@chakra-ui/react";
+import { VStack, Heading, Button, useToast, HStack } from "@chakra-ui/react";
 import { useState } from "react";
 import Auth from '../../../utils/auth';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { ADD_ARTICLE } from '../../../utils/mutations';
 import CategoryControl from './CategoryControl';
 import DescriptionControl from './DescriptionControl';
 import TagForm from './TagForm';
 import ImageUploadControls from './ImageUploadControls';
+import { UPDATE_ARTICLE } from '../../../utils/mutations';
 
 
 const ViewOwnItem = ({article}) => {
-  const [formState, setFormState] = useState(
-    {
-      description: article.description,
-      category: article.category,
-      tags: [...article.tags],
-      imageUploaded: false
-    }
-  );
-  const [submitArticle, { loading: submittedArticleLoading }] = useMutation(ADD_ARTICLE, { onCompleted: () => { return <Redirect to="/" /> } });
+  const initialFormState = {
+    description: article.description,
+    category: article.category,
+    tags: [...article.tags],
+    imageAction: 'none',
+  }
+  const [formState, setFormState] = useState(initialFormState);
+  const [submitArticle, { loading, called }] = useMutation(UPDATE_ARTICLE, { onCompleted: () => { window.location.assign('/profile'); } });
   const toast = useToast();
 
-  // TODO fix authentication
   if (!Auth.loggedIn()) {
-    // return <Redirect to="/" />;
+    return <Redirect to="/" />;
   }
+
+  // if (called && !loading) {
+  //   return <Redirect to="/profile" />;
+  // }
   
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    if (!formState.imageUploaded || !formState.description.trim()) {
+    if (!(
+          (article.imageFile && (!formState.discardImage))
+          || formState.imageAction !== 'none' 
+          || formState.description.trim()
+        )
+      )
+    {
       toast({
-        title: 'Cannot Add Item',
-        description: "You need to upload an image or enter a description.",
+        title: 'Cannot Update Item',
+        description: "Your item must have an image or a description.",
         status: 'warning',
         duration: 5000,
         isClosable: true,
@@ -44,7 +51,9 @@ const ViewOwnItem = ({article}) => {
 
     submitArticle({
       variables: {
-        ...formState
+        category: formState.category,
+        description: formState.description,
+        tags: formState.tags
       }
     });
   };
@@ -61,9 +70,13 @@ const ViewOwnItem = ({article}) => {
 
       <TagForm formState={formState} setFormState={setFormState} />
 
-      <Button my={8} onClick={handleSubmit} isLoading={submittedArticleLoading}>
-        Register New Item
-      </Button>
+      <HStack spacing={4}>
+        <Button my={8} onClick={handleSubmit} isLoading={loading}>
+          Update Item
+        </Button>
+        <Button as={Link} to="/profile">Go Back without Updating</Button>
+      </HStack>
+
     </VStack>
   );
 };
