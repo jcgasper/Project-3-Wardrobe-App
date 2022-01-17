@@ -1,8 +1,8 @@
 import React from "react";
-import { VStack, Heading, Button, useToast } from "@chakra-ui/react";
+import { VStack, HStack, Heading, Button, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import Auth from '../../utils/auth';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { ADD_ARTICLE } from '../../utils/mutations';
 import CategoryControl from './CategoryControl';
@@ -20,16 +20,16 @@ const AddItemForm = () => {
       imageUploaded: false
     }
   );
-  const [submitArticle, { loading, called }] = useMutation(ADD_ARTICLE, { onCompleted: () => { return <Redirect to="/" /> } });
+  const [submitArticle, { loading, called }] = useMutation(ADD_ARTICLE, { onCompleted: () => { window.location.assign('/profile'); } });
   const toast = useToast();
 
   if (!Auth.loggedIn()) {
     return <Redirect to="/" />;
   }
 
-  if (called && !loading) {
-    return <Redirect to="/profile" />;
-  }
+  // if (called && !loading) {
+  //   return <Redirect to="/profile" />;
+  // }
   
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -50,8 +50,6 @@ const AddItemForm = () => {
         description: formState.description,
         tags: formState.tags
       }
-    }).then(()=> {
-
     });
   };
 
@@ -67,9 +65,12 @@ const AddItemForm = () => {
 
       <TagForm formState={formState} setFormState={setFormState} />
 
-      <Button my={8} onClick={handleSubmit} isLoading={loading}>
-        Register New Item
-      </Button>
+      <HStack spacing={4}>
+        <Button my={8} onClick={handleSubmit} isLoading={loading}>
+          Register New Item
+        </Button>
+        <Button as={Link} to="/profile">Go Back</Button>
+      </HStack>
     </VStack>
   );
 };
