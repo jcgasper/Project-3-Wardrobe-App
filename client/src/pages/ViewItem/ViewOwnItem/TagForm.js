@@ -31,12 +31,12 @@ const TagForm = ({ formState, setFormState }) => {
       });
       return;
     }
-    setFormState({ ...formState, tags: [...formState.tags, newTag.trim()] });
+    setFormState({ ...formState, tags: [...formState.tags, newTag.trim()], hasChanges: true });
     setNewTag("");
   };
 
   const removeTag = (tagToRemove) => {
-    setFormState({ ...formState, tags: formState.tags.filter((tag) => tag !== tagToRemove) });
+    setFormState({ ...formState, tags: formState.tags.filter((tag) => tag !== tagToRemove), hasChanges: true });
   };
 
   return (
