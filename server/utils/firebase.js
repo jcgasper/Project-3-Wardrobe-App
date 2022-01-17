@@ -2,7 +2,6 @@
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getStorage } = require('firebase-admin/storage');
 
-require('dotenv').config();
 const serviceAccount = {
   "type": process.env.GOOGLE_TYPE,
   "project_id": process.env.GOOGLE_PROJECT_ID,
