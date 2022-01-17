@@ -64,7 +64,7 @@ const ImageUploadControls = ({ formState, setFormState }) => {
       uploadBytes(imageRef, file)
         .then(() => {
           addTempImage({ variables: { filename: uploadFileName } });
-          setFormState({ ...formState, hasChanges: true, imageFile: uploadFileName, imageAction: 'replace' });
+          setFormState({ ...formState, hasChanges: true, imageFile: uploadFileName, imageAction: 'update' });
         })
     } catch (error) {
       console.error(error);

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link as ReactLink } from 'react-router-dom';
-import { Navbar, Nav, Modal, Tab } from 'react-bootstrap';
 import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
 import Auth from '../utils/auth';
@@ -10,7 +9,7 @@ import { Link, Box, Flex, Text, Button, Stack, Container } from "@chakra-ui/reac
 
 
 const AppNavbar = (props) => {
-    const [isOpen, setIsOpen] = React.useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const loggedIn = Auth.loggedIn();
     const toggle = () => setIsOpen(!isOpen);
   

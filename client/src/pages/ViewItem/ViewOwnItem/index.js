@@ -53,12 +53,18 @@ const ViewOwnItem = ({ article }) => {
       return;
     }
 
+    const variables = {
+      articleId: article._id,
+      category: formState.category,
+      description: formState.description,
+      tags: formState.tags,
+      imageAction: formState.imageAction
+    }
+    console.log(article)
+    console.log(formState);
+    console.log(variables);
     submitArticle({
-      variables: {
-        category: formState.category,
-        description: formState.description,
-        tags: formState.tags
-      }
+      variables
     });
   };
 
