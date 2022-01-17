@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { VStack, Heading, Button, useToast, HStack } from "@chakra-ui/react";
 import { useState } from "react";
 import Auth from '../../../utils/auth';
@@ -18,6 +18,7 @@ const ViewOwnItem = ({ article }) => {
     category: article.category,
     tags: [...article.tags],
     imageAction: 'none',
+    imageFile: article.imageFile,
     hasChanges: false
   }
   const [formState, setFormState] = useState(initialFormState);
