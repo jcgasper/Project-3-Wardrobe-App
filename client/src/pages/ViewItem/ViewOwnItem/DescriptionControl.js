@@ -13,7 +13,7 @@ const DescriptionControl = ({ formState, setFormState }) => {
         id="description"
         placeholder="Type a description of your item (optional)"
         value={formState.description}
-        onChange={(e) => setFormState({ ...formState, description: e.target.value })}
+        onChange={(e) => setFormState({ ...formState, description: e.target.value, hasChanges: true })}
         maxLength="100"
       />
     </FormControl>
