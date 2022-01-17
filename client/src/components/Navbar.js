@@ -58,13 +58,13 @@ const AppNavbar = (props) => {
     );
   };
   
-  const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
+  const MenuItem = ({ children, isLast, to = "/", pointer, ...rest }) => {
     return (
-      <ReactLink to={to}>
+      <Link as={ReactLink} to={to} pointerEvents={pointer}>
         <Text display="block" {...rest} textColor='pink.800'>
           {children}
         </Text>
-      </ReactLink>
+      </Link>
     );
   };
   
@@ -82,11 +82,11 @@ const AppNavbar = (props) => {
           pt={[4, 4, 0, 0]}
         >
           <MenuItem to="/">Home</MenuItem>
-          <MenuItem to="/Profile">My Wardrobe </MenuItem>
-          <MenuItem to="/addItem">Add Item </MenuItem>
-          <MenuItem to="/">Search Wardrobe </MenuItem>
+          <MenuItem to="/Profile" pointer={Auth.loggedIn() ? 'auto' : 'none'}>My Wardrobe </MenuItem>
+          <MenuItem to="/addItem" pointer={Auth.loggedIn() ? 'auto' : 'none'}>Add Item </MenuItem>
           {(!Auth.loggedIn()) ? 
-          <MenuItem to="/signup" isLast>
+          <>
+            <MenuItem to="/login" pointer='auto'>
             <Button
               size="sm"
               rounded="md"
@@ -96,9 +96,24 @@ const AppNavbar = (props) => {
                 bg: ["primary.100", "primary.100", "primary.600", "primary.600"]
               }}
             >
-              Login/Signup
+              Login
             </Button>
-          </MenuItem> :
+          </MenuItem>
+          <MenuItem to="/signup" pointer='auto' isLast>
+          <Button
+            size="sm"
+            rounded="md"
+            color={["primary.500", "primary.500", "pink.800", "pink.800"]}
+            bg={["white", "white", "primary.500", "primary.500"]}
+            _hover={{
+              bg: ["primary.100", "primary.100", "primary.600", "primary.600"]
+            }}
+          >
+            Signup
+          </Button>
+        </MenuItem>
+          </>
+           :
           <Button
           size="sm"
           rounded="md"
