@@ -16,9 +16,8 @@ function Profile() {
 
     const [currCategory, setCurrCategory] = useState();
 
-    const {loading, error, data} = useQuery(GET_BY_CATEGORY, {
-        fetchPolicy: 'cache-and-network',
-        onCompleted: (data) => {console.log(data)}
+    const {loading, data} = useQuery(GET_BY_CATEGORY, {
+        fetchPolicy: 'cache-and-network'
     });
 
     if(loading) {
