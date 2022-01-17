@@ -1,11 +1,12 @@
 import React from 'react';
-import { Heading, Flex, Text, Box } from '@chakra-ui/react';
+import { Heading, Flex, Text, Box, useMediaQuery } from '@chakra-ui/react';
 import ProfileBox from '../components/ProfileBox';
 import AddButton from '../components/AddButton';
 
 function FullCategory({category, items, setCurrCategory}) {
 
     const categoryName = (category === 'Top' || category === 'Bottom') ? category + 's' : (category === 'Accessory') ? 'Accessories' : category;
+    const [under768] = useMediaQuery('(max-width: 768px)');
 
     const goBack = () => {
         setCurrCategory(null);
