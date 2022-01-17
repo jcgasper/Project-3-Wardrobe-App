@@ -18,6 +18,7 @@ import {
     Link,
     useToast
   } from '@chakra-ui/react';
+import {Link as ReactLink } from 'react-router-dom';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import Auth from '../utils/auth';
 
@@ -150,7 +151,7 @@ const SignupForm = () => {
             </Stack>
             <Stack pt={6}>
               <Text align={'center'}>
-                Already have an account? <Link to="/login" color={'blue.400'} >Login</Link>
+                Already have an account? <Link as={ReactLink} to="/login" color={'blue.400'} >Login</Link>
               </Text>
             </Stack>
           </Stack>
