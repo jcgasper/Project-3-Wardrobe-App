@@ -61,7 +61,7 @@ const AppNavbar = (props) => {
   const MenuItem = ({ children, isLast, to = "/", pointer, ...rest }) => {
     return (
       <Link as={ReactLink} to={to} pointerEvents={pointer}>
-        <Text display="block" {...rest} textColor='pink.800'>
+        <Text display="block" {...rest} textColor='pink.800'  fontSize='lg'>
           {children}
         </Text>
       </Link>
@@ -95,6 +95,7 @@ const AppNavbar = (props) => {
               _hover={{
                 bg: ["primary.100", "primary.100", "primary.600", "primary.600"]
               }}
+              fontSize='lg'
             >
               Login
             </Button>
@@ -108,13 +109,15 @@ const AppNavbar = (props) => {
             _hover={{
               bg: ["primary.100", "primary.100", "primary.600", "primary.600"]
             }}
+            fontSize='lg'
           >
             Signup
           </Button>
         </MenuItem>
           </>
            :
-          <Button
+          <MenuItem pointer='auto' isLast>
+            <Button
           size="sm"
           rounded="md"
           color={["primary.500", "primary.500", "pink.800", "pink.800"]}
@@ -122,10 +125,13 @@ const AppNavbar = (props) => {
           _hover={{
             bg: ["primary.100", "primary.100", "primary.600", "primary.600"]
           }}
+          fontSize='lg'
           onClick={() => Auth.logout()}
         >
           Logout
         </Button>
+          </MenuItem>
+          
           }
         </Stack>
       </Box>
