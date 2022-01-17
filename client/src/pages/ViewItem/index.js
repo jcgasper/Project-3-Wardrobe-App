@@ -9,7 +9,7 @@ import { useQuery } from '@apollo/client';
 
 const ViewItem = () => {
   const { articleId } = useParams();
-  const { loading, data, error } = useQuery(GET_ARTICLE, { variables: { articleId } });
+  const { loading, data } = useQuery(GET_ARTICLE, { variables: { articleId } });
   
   const article = data?.article || {};
 

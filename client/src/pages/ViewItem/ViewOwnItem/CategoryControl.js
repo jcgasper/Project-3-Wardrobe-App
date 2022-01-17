@@ -9,7 +9,7 @@ const CategoryControl = ({ formState, setFormState }) => {
   return (
     <FormControl isRequired>
       <FormLabel htmlFor="type">Item Category</FormLabel>
-      <Select id="type" w={200} onChange={(e) => setFormState({ ...formState, category: e.target.value })}>
+      <Select id="type" w={200} defaultValue={formState.category} onChange={(e) => setFormState({ ...formState, category: e.target.value, hasChanges: true })}>
         <option>Top</option>
         <option>Bottom</option>
         <option>Outerwear</option>

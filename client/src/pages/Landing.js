@@ -23,7 +23,7 @@ function Landing() {
                             1
                         </Box>
                         <Box p={3}>
-                            Creat Your Account
+                            Create your account
                         </Box>
                         <Box p={3}>
                             <Button colorScheme='pink' borderRadius={0} as={ReactLink} to='/signup'>Click here!</Button>

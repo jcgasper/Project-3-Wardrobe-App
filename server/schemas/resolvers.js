@@ -134,7 +134,7 @@ const resolvers = {
 
       return { token, user };
     },
-    updateArticle: async (parent, { articleId, newImage = false, discardImage = false, ...newArticleData }, context) => {
+    updateArticle: async (parent, { articleId, imageAction = 'none', ...newArticleData }, context) => {
       if (!context.user) {
         throw new AuthenticationError('You need to be logged in!');
       }
@@ -145,18 +145,18 @@ const resolvers = {
         throw new AuthenticationError('That item does not belong to you!');
       }
 
-      if (newImage || discardImage) {
+      if (imageAction !== 'none') {
         // delete old image
         deleteImageFromFirebase(article.imageFile);
       }
-      if (newImage) {
+      if (imageAction === 'update') {
         article.imageFile = user.tempImageFile;
         user.tempImageFile = '';
       }
 
       article.category = newArticleData?.category ?? article.category;
       article.tags = newArticleData?.tags ?? article.tags;
-      article.description = newArticleData?.description ?? description;
+      article.description = newArticleData?.description ?? article.description;
       // TODO check if there is a better way with atomic transaction enforcement
       await Promise.all([user.save(), article.save()]);
       return article;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   FormControl,
   FormLabel,
@@ -13,30 +13,40 @@ import {
 import { useState } from 'react';
 import FileUploadButton from '../../../components/FileUploadButton';
 import { FaTrash } from 'react-icons/fa';
-import { useMutation, useQuery } from '@apollo/client';
-import { ADD_TEMP_IMAGE, REMOVE_TEMP_IMAGE } from '../../../utils/mutations';
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useMutation } from '@apollo/client';
+import { ADD_TEMP_IMAGE } from '../../../utils/mutations';
+import { ref, uploadBytes } from "firebase/storage";
 import { storage } from '../../../utils/firebase';
 import { DEFAULT_IMAGE_LOCATION, generateFileName, getDownloadURLForImageFile, validateImageType } from '../../../utils/imageUploads';
-import { GET_TEMP_IMAGE_FILE } from '../../../utils/queries';
 
 
 
 const ImageUploadControls = ({ formState, setFormState }) => {
   const [addTempImage, { loading: addTempImageLoading }] = useMutation(ADD_TEMP_IMAGE);
-  const [removeTempImage, { loading: removeTempImageLoading }] = useMutation(REMOVE_TEMP_IMAGE);
-  const [isUploading, setIsUploading] = useState(false);
+  const [isUploading, setIsUploading] = useState(true);
   const [imageURL, setImageURL] = useState(DEFAULT_IMAGE_LOCATION);
-  const { loading: getTempImageLoading, data: getTempImageData } = useQuery(GET_TEMP_IMAGE_FILE);
   const toast = useToast();
 
-  if (getTempImageData?.user.tempImageFile && !(imageURL.includes(getTempImageData.user.tempImageFile))) {
-    getDownloadURLForImageFile( getTempImageData.user.tempImageFile)
+  useEffect(() => {
+    if (!formState.imageFile) {
+      setIsUploading(false);
+      setImageURL(DEFAULT_IMAGE_LOCATION);
+      return;
+    }
+    getDownloadURLForImageFile(formState.imageFile)
       .then(url => {
-        setFormState({ ...formState, imageUploaded: true })
         setImageURL(url);
+        setIsUploading(false);
       });
-  }
+  }, [formState.imageFile]);
+
+  // if (getTempImageData?.tempImageFile && !(imageURL.includes(getTempImageData.tempImageFile))) {
+  //   getDownloadURLForImageFile(getTempImageData.tempImageFile)
+  //     .then(url => {
+  //       setFormState({ ...formState, imageUploaded: true })
+  //       setImageURL(url);
+  //     });
+  // }
 
 
   const fileUploadHandler = (event) => {
@@ -52,12 +62,9 @@ const ImageUploadControls = ({ formState, setFormState }) => {
       const imageRef = ref(storage, uploadFileName);
       setIsUploading(true);
       uploadBytes(imageRef, file)
-        .then(snapshot => getDownloadURL(snapshot.ref))
-        .then(downloadURL => {
+        .then(() => {
           addTempImage({ variables: { filename: uploadFileName } });
-          setIsUploading(false);
-          setImageURL(downloadURL);
-          setFormState({ ...formState, imageUploaded: true });
+          setFormState({ ...formState, hasChanges: true, imageFile: uploadFileName, imageAction: 'replace' });
         })
     } catch (error) {
       console.error(error);
@@ -71,9 +78,7 @@ const ImageUploadControls = ({ formState, setFormState }) => {
   }
 
   const discardImageHandler = () => {
-    removeTempImage();
-    setImageURL(DEFAULT_IMAGE_LOCATION);
-    setFormState({ ...formState, imageUploaded: false });
+    setFormState({ ...formState, hasChanges: true, imageFile: '', imageAction: 'delete' });
   };
 
   return (
@@ -89,11 +94,11 @@ const ImageUploadControls = ({ formState, setFormState }) => {
             isLoading={isUploading || addTempImageLoading}
           >Click to Upload</FileUploadButton>
 
-          <IconButton aria-label='Discard Image' isLoading={removeTempImageLoading} icon={<FaTrash />} isDisabled={imageURL === DEFAULT_IMAGE_LOCATION} onClick={discardImageHandler} />
+          <IconButton aria-label='Discard Image' icon={<FaTrash />} isDisabled={imageURL === DEFAULT_IMAGE_LOCATION} onClick={discardImageHandler} />
         </ButtonGroup>
       </FormControl>
       {
-        (isUploading || addTempImageLoading || removeTempImageLoading || getTempImageLoading)
+        (isUploading || addTempImageLoading )
           ?
           <Center w="320px" h="512px" border={1} boxShadow="md">
             <Spinner size='xl' />
