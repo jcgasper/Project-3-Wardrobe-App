@@ -11,7 +11,7 @@ import { Link, Box, Flex, Text, Button, Stack, Container } from "@chakra-ui/reac
 
 const AppNavbar = (props) => {
     const [isOpen, setIsOpen] = React.useState(false);
-
+    const loggedIn = Auth.loggedIn();
     const toggle = () => setIsOpen(!isOpen);
   
     return (
@@ -85,6 +85,7 @@ const AppNavbar = (props) => {
           <MenuItem to="/Profile">My Wardrobe </MenuItem>
           <MenuItem to="/addItem">Add Item </MenuItem>
           <MenuItem to="/">Search Wardrobe </MenuItem>
+          {(!Auth.loggedIn()) ? 
           <MenuItem to="/signup" isLast>
             <Button
               size="sm"
@@ -97,7 +98,20 @@ const AppNavbar = (props) => {
             >
               Login/Signup
             </Button>
-          </MenuItem>
+          </MenuItem> :
+          <Button
+          size="sm"
+          rounded="md"
+          color={["primary.500", "primary.500", "pink.800", "pink.800"]}
+          bg={["white", "white", "primary.500", "primary.500"]}
+          _hover={{
+            bg: ["primary.100", "primary.100", "primary.600", "primary.600"]
+          }}
+          onClick={() => Auth.logout()}
+        >
+          Logout
+        </Button>
+          }
         </Stack>
       </Box>
     );
