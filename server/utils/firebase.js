@@ -1,10 +1,6 @@
 //const path = require('path');
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getStorage } = require('firebase-admin/storage');
-<<<<<<< HEAD
-require('dotenv').config();
-const serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS); //require(path.join('..', process.env.GOOGLE_APPLICATION_CREDENTIALS));
-=======
 
 require('dotenv').config();
 const serviceAccount = {
@@ -19,7 +15,6 @@ const serviceAccount = {
   "auth_provider_x509_cert_url": process.env.GOOGLE_AUTH_PROVIDER_X509_CERT_URL,
   "client_x509_cert_url": process.env.GOOGLE_CLIENT_X509_CERT_URL
 } 
->>>>>>> 396481a581ffa1edf8c3402a6969b8b57ba95c8a
 
 initializeApp({
   credential: cert(serviceAccount),
