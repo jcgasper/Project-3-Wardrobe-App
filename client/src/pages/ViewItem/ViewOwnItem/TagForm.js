@@ -4,7 +4,6 @@ import {
   FormLabel,
   Box,
   Text,
-  HStack,
   Tag,
   TagLabel,
   TagCloseButton,
@@ -12,6 +11,7 @@ import {
   Stack,
   Button,
   useToast,
+  Flex,
 } from "@chakra-ui/react";
 import { useState } from 'react';
 
@@ -41,7 +41,7 @@ const TagForm = ({ formState, setFormState }) => {
 
   return (
     <FormControl>
-      <FormLabel htmlFor="tags">Tags</FormLabel>
+      <FormLabel htmlFor="tags" fontSize='lg' fontWeight='bold' textColor='pink.700'>Tags</FormLabel>
       <Box minH={3} pb={1}>
         {formState.tags.length === 0 ? (
           <Text>
@@ -49,14 +49,20 @@ const TagForm = ({ formState, setFormState }) => {
             to add one.
           </Text>
         ) : (
-          <HStack>
+          <Flex wrap='wrap'>
             {formState.tags.map((tag) => (
-              <Tag key={tag}>
-                <TagLabel>{tag}</TagLabel>
+              <Tag
+                key={tag}
+                colorScheme='pink'
+                borderRadius={0}
+                me={1}
+                mb={1}
+              >
+                <TagLabel py={2}>{tag}</TagLabel>
                 <TagCloseButton onClick={(e) => removeTag(tag)} />
               </Tag>
             ))}
-          </HStack>
+          </Flex>
         )}
       </Box>
       <Stack
@@ -69,9 +75,17 @@ const TagForm = ({ formState, setFormState }) => {
           id="newTag"
           placeholder='"Size M", "Brown", "Polo shirt", "Gucci", etc.'
           value={newTag}
+          borderRadius={0}
+          borderColor='pink.700'
+          focusBorderColor='pink.400'
+          maxLength="50"
           onChange={(e) => setNewTag(e.target.value)}
         />
-        <Button id="addNewTagButton" type="submit">
+        <Button id="addNewTagButton" type="submit"
+          colorScheme='pink'
+          borderRadius={0}
+          flexShrink={0}
+        >
           Add New Tag
         </Button>
       </Stack>

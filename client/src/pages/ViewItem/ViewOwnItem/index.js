@@ -1,5 +1,5 @@
 import React from "react";
-import { VStack, Heading, Button, useToast, HStack } from "@chakra-ui/react";
+import { VStack, Heading, Button, useToast, Flex } from "@chakra-ui/react";
 import { useState } from "react";
 import Auth from '../../../utils/auth';
 import { Link, Redirect } from 'react-router-dom';
@@ -28,12 +28,6 @@ const ViewOwnItem = ({ article }) => {
   if (!Auth.loggedIn()) {
     return <Redirect to="/" />;
   }
-
-  // if (called && !loading) {
-  //   return <Redirect to="/profile" />;
-  // }
-
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -69,8 +63,8 @@ const ViewOwnItem = ({ article }) => {
   };
 
   return (
-    <VStack padding={4} spacing={6} align="stretch" mb={10}>
-      <Heading>Add Item to Your Wardrobe</Heading>
+    <VStack padding={4} spacing={6} align="stretch" mt={8} mb={10}>
+      <Heading textColor='pink.500'>Add Item to Your Wardrobe</Heading>
 
       <CategoryControl setFormState={setFormState} formState={formState} />
 
@@ -80,18 +74,40 @@ const ViewOwnItem = ({ article }) => {
 
       <TagForm formState={formState} setFormState={setFormState} />
 
-      <HStack spacing={4} my={8}>
-        <Button onClick={handleSubmit} isLoading={loading} isDisabled={!formState.hasChanges}>
-          Update Item
+      <Flex flexDirection='row' spacing={4} my={8} shouldWrapChildren={true} wrap='wrap' maxW='100vw'>
+        <Button
+          onClick={handleSubmit}
+          isLoading={loading}
+          isDisabled={!formState.hasChanges}
+          colorScheme='pink'
+          borderRadius={0}
+          flexShrink={0}
+        >
+          Save Changes
         </Button>
-        <Button onClick={() => setFormState(initialFormState)} isDisabled={!formState.hasChanges}>
-          Reset Form
+        <Button
+          borderRadius={0}
+          flexShrink={0}
+          onClick={() => setFormState(initialFormState)}
+          isDisabled={!formState.hasChanges}
+        >
+          Undo Changes
         </Button>
         <DeleteButton article={article} />
-        <Button as={Link} to="/profile">
-          Go Back without Updating
+        <Button 
+          as={Link}
+          to="/profile"
+          flexShrink={0}
+          borderRadius={0}
+          h='40px'
+          mx={4}
+          justifyContent='space-between'
+          variant='link'
+          colorScheme='pink'
+        >
+          Go Back
         </Button>
-      </HStack>
+      </Flex>
 
     </VStack>
   );

@@ -10,7 +10,15 @@ const FileUploadButton = ({ name, isLoading, placeholder, acceptedFileTypes, chi
   return (
     <InputGroup>
       <input type='file' accept={acceptedFileTypes} name={name} ref={inputRef} {...inputProps} onChange={onChange} style={{ display: 'none' }}></input>
-      <Button isLoading={isLoading} leftIcon={<Icon as={FaFileUpload} />} onClick={() => inputRef.current.click()}>{children || "Click here ..."}</Button>
+      <Button
+        isLoading={isLoading}
+        leftIcon={<Icon as={FaFileUpload} />}
+        onClick={() => inputRef.current.click()}
+        colorScheme='pink'
+        borderRadius={0}
+      >
+        {children || "Click here ..."}
+      </Button>
     </InputGroup>
   );
 }

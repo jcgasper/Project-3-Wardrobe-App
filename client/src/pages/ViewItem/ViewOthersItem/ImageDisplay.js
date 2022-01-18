@@ -12,7 +12,7 @@ import { getDownloadURLForImageFile } from '../../../utils/imageUploads';
 
 
 
-const ImageUploadControls = ({ imageFile }) => {
+const ImageDisplay = ({ imageFile }) => {
   const [imageURL, setImageURL] = useState('');
   useEffect(() => { getDownloadURLForImageFile(imageFile).then(setImageURL) }, [imageFile]);
 
@@ -20,13 +20,13 @@ const ImageUploadControls = ({ imageFile }) => {
   return (
     <Box>
       <FormControl mb={1}>
-        <FormLabel>Picture</FormLabel>
+        <FormLabel fontSize='lg' fontWeight='bold' textColor='pink.700'>Picture</FormLabel>
       </FormControl>
       {
         (!imageURL)
           ?
           <Center w="320px" h="512px" border={1} boxShadow="md">
-            <Spinner size='xl' />
+            <Spinner size='xl' color='pink.500' />
           </Center>
           :
           <Image maxH="512px" border={1} boxShadow="md" src={imageURL} />
@@ -36,4 +36,4 @@ const ImageUploadControls = ({ imageFile }) => {
   );
 }
 
-export default ImageUploadControls;
+export default ImageDisplay;

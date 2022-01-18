@@ -8,8 +8,20 @@ import {
 const CategoryControl = ({ formState, setFormState }) => {
   return (
     <FormControl isRequired>
-      <FormLabel htmlFor="type">Item Category</FormLabel>
-      <Select id="type" w={200} onChange={(e) => setFormState({ ...formState, category: e.target.value })}>
+      <FormLabel
+        htmlFor="category"
+        fontSize='lg'
+        fontWeight='bold'
+        textColor='pink.700'
+      >Item Category</FormLabel>
+      <Select
+        id="category"
+        w={200}
+        borderRadius={0}
+        focusBorderColor='pink.400'
+        borderColor='pink.700'
+        iconColor='pink.700'
+        onChange={(e) => setFormState({ ...formState, category: e.target.value })}>
         <option>Top</option>
         <option>Bottom</option>
         <option>Outerwear</option>

@@ -146,13 +146,13 @@ const resolvers = {
         throw new AuthenticationError('That item does not belong to you!');
       }
 
-      if (imageAction !== 'none') {
-        // delete old image
-        deleteImageFromFirebase(article.imageFile);
-      }
       if (imageAction === 'update') {
+        deleteImageFromFirebase(article.imageFile);
         article.imageFile = user.tempImageFile;
         user.tempImageFile = '';
+      } else if (imageAction === 'delete') {
+        deleteImageFromFirebase(article.imageFile);
+        article.imageFile = '';
       }
 
       article.category = newArticleData?.category ?? article.category;

@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/jcgasper/mystyle/issues"
   },
-  "homepage": "https://github.com/jcgasper/Project-3-Wardrobe-App#readme",
+  "homepage": "https://mystyle-wardrobe-manager.herokuapp.com/",
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",
     "concurrently": "^7.0.0"
