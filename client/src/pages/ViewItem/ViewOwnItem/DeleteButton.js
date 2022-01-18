@@ -39,7 +39,12 @@ function DeleteButton({ article }) {
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>
+      <Button
+        flexShrink={0}
+        borderRadius={0}
+        onClick={() => setIsOpen(true)}
+        variant='ghost'
+      >
         Delete Item
       </Button>
 

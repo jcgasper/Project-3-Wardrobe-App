@@ -17,7 +17,7 @@ const ViewItem = () => {
     return (
       <VStack>
         <Heading>View Item</Heading>
-        <CircularProgress isIndeterminate size={72}/>
+        <CircularProgress isIndeterminate size={72} color='pink.500'/>
       </VStack>
     )
   }
