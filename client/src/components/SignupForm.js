@@ -87,10 +87,10 @@ const SignupForm = () => {
     >
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'} textAlign={'center'}>
+          <Heading fontSize={'4xl'} textAlign={'center'} color={"pink.600"}>
             Sign up
           </Heading>
-          <Text fontSize={'lg'} color={'gray.600'}>
+          <Text fontSize={'lg'} color={'pink.600'}>
             to use MyStyle!
           </Text>
         </Stack>
@@ -103,7 +103,7 @@ const SignupForm = () => {
             <HStack>
               <Box>
                 <FormControl id="displayname" isRequired>
-                  <FormLabel>Display Name</FormLabel>
+                  <FormLabel color={"pink.800"}>Display Name</FormLabel>
                   <Input
                     type="text"
                     onChange={handleInputChange}
@@ -113,7 +113,7 @@ const SignupForm = () => {
               </Box>
             </HStack>
             <FormControl id="email" isRequired>
-              <FormLabel>Email address</FormLabel>
+              <FormLabel color={"pink.800"}>Email address</FormLabel>
               <Input
                 type="email"
                 onChange={handleInputChange}
@@ -121,7 +121,7 @@ const SignupForm = () => {
                 name="email" />
             </FormControl>
             <FormControl id="password" isRequired>
-              <FormLabel>Password</FormLabel>
+              <FormLabel color={"pink.800"}>Password</FormLabel>
               <InputGroup>
                 <Input type={showPassword ? 'text' : 'password'}
                   onChange={handleInputChange}
@@ -143,7 +143,7 @@ const SignupForm = () => {
                 type='submit'
                 loadingText="Submitting"
                 size="lg"
-                bg={'blue.400'}
+                bg={'pink.500'}
                 color={'white'}
                 _hover={{
                   bg: 'blue.500',
@@ -152,8 +152,8 @@ const SignupForm = () => {
               </Button>
             </Stack>
             <Stack pt={6}>
-              <Text align={'center'}>
-                Already have an account? <Link as={ReactLink} to="/login" color={'blue.400'} >Login</Link>
+              <Text align={'center'} color={"pink.800"}>
+                Already have an account? <Link as={ReactLink} to="/login" color={'pink.500'} >Login</Link>
               </Text>
             </Stack>
           </Stack>

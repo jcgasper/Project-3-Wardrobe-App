@@ -19,6 +19,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
+import { Link as ReactLink } from 'react-router-dom';
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -87,9 +88,9 @@ const LoginForm = () => {
     >
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
-          <Heading fontSize={"4xl"}>Sign in to your MyStyle account!</Heading>
-          <Text fontSize={"lg"} color={"gray.600"}>
-            to enjoy all of our cool <Link color={"blue.400"}>features</Link> ✌️
+          <Heading fontSize={"4xl"} color={"pink.500"}>Sign in to your MyStyle account!</Heading>
+          <Text fontSize={"lg"} color={"pink.800"}>
+            to enjoy all of our cool features ✌️
           </Text>
         </Stack>
         <Box
@@ -100,7 +101,7 @@ const LoginForm = () => {
         >
           <Stack spacing={4}>
             <FormControl id="email">
-              <FormLabel>Email address</FormLabel>
+              <FormLabel color={"pink.800"}>Email address</FormLabel>
               <Input
                 type="email"
                 onChange={handleInputChange}
@@ -109,7 +110,7 @@ const LoginForm = () => {
               />
             </FormControl>
             <FormControl id="password">
-              <FormLabel>Password</FormLabel>
+              <FormLabel color={"pink.800"}>Password</FormLabel>
               <Input
                 type="password"
                 onChange={handleInputChange}
@@ -120,7 +121,7 @@ const LoginForm = () => {
             <Button
               type="submit"
               isDisabled={!(userFormData.email && userFormData.password)}
-              bg={"blue.400"}
+              bg={"pink.500"}
               color={"white"}
               _hover={{
                 bg: "blue.500",
@@ -129,6 +130,11 @@ const LoginForm = () => {
               Sign in
             </Button>
           </Stack>
+          <Stack pt={6}>
+              <Text align={'center'} color={"pink.800"}>
+                Do not have an account?? <Link as={ReactLink} to="/signup" color={'pink.500'} >Sign Up!</Link>
+              </Text>
+            </Stack>
         </Box>
       </Stack>
     </Flex>
