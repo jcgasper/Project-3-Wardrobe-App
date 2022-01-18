@@ -13,8 +13,7 @@ import {
     AlertDialogOverlay, 
     IconButton,
     Grid,
-    GridItem,
-    Progress } from '@chakra-ui/react';
+    GridItem } from '@chakra-ui/react';
 import { FaTrashAlt } from 'react-icons/fa';
 import { useMutation } from "@apollo/client";
 import { getDownloadURLForImageFile } from '../utils/imageUploads';
@@ -27,7 +26,7 @@ function ProfileBox({image, desc, id}) {
         setIsOpen(false)
     }
 
-    const [removeArticle, { data, loading, error }] = useMutation(REMOVE_ARTICLE, {
+    const [removeArticle] = useMutation(REMOVE_ARTICLE, {
       refetchQueries: [
         GET_BY_CATEGORY
       ]
