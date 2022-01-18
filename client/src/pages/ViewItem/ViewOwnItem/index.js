@@ -64,7 +64,7 @@ const ViewOwnItem = ({ article }) => {
 
   return (
     <VStack padding={4} spacing={6} align="stretch" mt={8} mb={10}>
-      <Heading textColor='pink.500'>Add Item to Your Wardrobe</Heading>
+      <Heading textColor='pink.500'>View/Update Item in Your Wardrobe</Heading>
 
       <CategoryControl setFormState={setFormState} formState={formState} />
 
