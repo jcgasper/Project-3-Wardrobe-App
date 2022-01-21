@@ -33,15 +33,14 @@ function Profile() {
 
     return (
         <>
-        <Box my={10}>
+        <Box my={10} w='full'>
             <ProfileFilter />
         </Box>
         
-        <Grid templateColumns='repeat(4, 1fr)' gap={4}>
+        <Grid templateColumns='repeat(auto-fill, minmax(210px, 1fr))' gap={10}>
             {(!clothes.length) ? <GridItem colSpan='4'><Heading>You've got no clothes! Why don't you add some?</Heading></GridItem> : 
             clothes.map(article => {return (<GridItem><ProfileBox image={article.imageFile} desc={article.description} id={article._id} key={article._id} /></GridItem>)})}
         </Grid>
-           
            
         <AddButton />
         </>
