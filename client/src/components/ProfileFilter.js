@@ -1,19 +1,23 @@
+import React from 'react';
 import {
   Accordion,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
+  Icon,
+  Box
 } from "@chakra-ui/react";
+import { FaFilter } from 'react-icons/fa'
 
 function ProfileFilter() {
   return (
-    <Accordion allowToggle>
+    <Accordion allowToggle w='full'>
       <AccordionItem>
         <h2>
           <AccordionButton>
             <Box flex="1" textAlign="left">
-              Section 1 title
+            <Icon as={FaFilter} /> Filter Your Wardrobe 
             </Box>
             <AccordionIcon />
           </AccordionButton>

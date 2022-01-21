@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { VStack, StackDivider, Heading, Progress } from '@chakra-ui/react';
+import { VStack, StackDivider, Heading, Progress, Grid, GridItem, Box } from '@chakra-ui/react';
 import ProfileCategory from '../components/ProfileCategory';
 import FullCategory from './FullCategory';
 import AddButton from '../components/AddButton';
 import { useQuery } from '@apollo/client';
-import { GET_BY_CATEGORY } from '../utils/queries';
+import { GET_ME } from '../utils/queries';
 import Auth from '../utils/auth';
+import ProfileFilter from '../components/ProfileFilter';
+import ProfileBox from '../components/ProfileBox';
 
 function Profile() {
 
@@ -16,9 +18,7 @@ function Profile() {
 
     const [currCategory, setCurrCategory] = useState();
 
-    const {loading, data} = useQuery(GET_BY_CATEGORY, {
-        fetchPolicy: 'cache-and-network'
-    });
+    const {loading, data} = useQuery(GET_ME);
 
     if(loading) {
         return (
@@ -29,19 +29,20 @@ function Profile() {
         )
     }
 
-    const clothes = data?.categories || [];
+    const clothes = data?.me.clothing || [];
 
     return (
         <>
-        <VStack spacing={5} p={4} divider={<StackDivider borderColor='gray.300' />}>
-           {(!clothes.length) ? <Heading>You've got no clothes! Why don't you add some?</Heading> : (!currCategory) ? clothes.map((item, index) => {
-               return (<ProfileCategory category={item.category} items={item.clothing} key={index} setCurrCategory={setCurrCategory} />)
-           }) : clothes.map((item, index) => {
-               if(item.category === currCategory) {
-                   return (<FullCategory category={item.category} items={item.clothing} key={index} setCurrCategory={setCurrCategory} />)
-               }
-           } )}
-        </VStack>
+        <Box my={10}>
+            <ProfileFilter />
+        </Box>
+        
+        <Grid templateColumns='repeat(4, 1fr)' gap={4}>
+            {(!clothes.length) ? <GridItem colSpan='4'><Heading>You've got no clothes! Why don't you add some?</Heading></GridItem> : 
+            clothes.map(article => {return (<GridItem><ProfileBox image={article.imageFile} desc={article.description} id={article._id} key={article._id} /></GridItem>)})}
+        </Grid>
+           
+           
         <AddButton />
         </>
     );
