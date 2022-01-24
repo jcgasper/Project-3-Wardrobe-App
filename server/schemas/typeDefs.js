@@ -28,7 +28,7 @@ const typeDefs = gql`
     imageFile: String
     owner: User
     lastWorn: Date
-    wearingLog: [Date]
+    wearings: [Date]
     dateAcquired: Date
   }
 
@@ -71,11 +71,11 @@ const typeDefs = gql`
       articleId: ID!,
       category: ArticleCategory,
       description: String,
-      tags: [Date],
+      tags: [String],
       dateAcquired: Date,
       imageAction: ImageAction
     ): Article
-    wearArticle(
+    addWearing(
       articleId: ID!,
       wearDate: Date!
     ): Article

@@ -22,7 +22,7 @@ const articleSchema = new Schema({
     lastWorn: {
         type: Date
     },
-    wearingLog: [{
+    wearings: [{
         type: Date
     }],
     dateAcquired: {

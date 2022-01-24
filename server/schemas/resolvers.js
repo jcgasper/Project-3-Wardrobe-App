@@ -185,7 +185,7 @@ const resolvers = {
       ]);
       return article;
     },
-    wearArticle: async (parent, { articleId, wearDate }, context) => {
+    addWearing: async (parent, { articleId, wearDate }, context) => {
       if (!context.user) {
         throw new AuthenticationError('You need to be logged in!');
       }
@@ -196,12 +196,13 @@ const resolvers = {
         throw new AuthenticationError('That item does not belong to you!');
       }
 
-      if (!article.wearingLog) {
-        article.wearingLog = [];
+      if (!article.wearings) {
+        article.wearings = [];
       }
 
-      article.lastWorn = wearDate;
-      article.wearingLog.unshift(wearDate);
+      article.wearings = [...article.wearings, wearDate].sort((a, b) => b - a);
+      article.lastWorn = article.wearings[0];
+
       await article.save();
       return article;
     }
