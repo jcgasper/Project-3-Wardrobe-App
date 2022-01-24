@@ -18,6 +18,15 @@ const articleSchema = new Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    lastWorn: {
+        type: Date
+    },
+    wearings: [{
+        type: Date
+    }],
+    dateAcquired: {
+        type: Date
     }
 });
 

@@ -49,20 +49,23 @@ export const REMOVE_TEMP_IMAGE = gql`
 `;
 
 export const ADD_ARTICLE = gql`
-  mutation addArticle($category: ArticleCategory!, $description: String, $tags: [String]) {
-    addArticle(category: $category, description: $description, tags: $tags) {
+  mutation addArticle($category: ArticleCategory!, $description: String, $tags: [String], $dateAcquired: Date) {
+    addArticle(category: $category, description: $description, tags: $tags, dateAcquired: $dateAcquired) {
       _id
       category
       description
       tags
       imageFile
+      dateAcquired
+      lastWorn
+      wearings
     }
   }
 `;
 
 export const UPDATE_ARTICLE = gql`
-  mutation updateArticle($articleId: ID!, $category: ArticleCategory, $description: String, $tags: [String], $imageAction: ImageAction) {
-    updateArticle(articleId: $articleId, category: $category, description: $description, tags: $tags, imageAction: $imageAction) {
+  mutation updateArticle($articleId: ID!, $category: ArticleCategory, $description: String, $tags: [String], $imageAction: ImageAction, $dateAcquired: Date) {
+    updateArticle(articleId: $articleId, category: $category, description: $description, tags: $tags, imageAction: $imageAction, dateAcquired: $dateAcquired) {
       _id
     }
   }
@@ -73,6 +76,21 @@ export const REMOVE_ARTICLE = gql`
       description
       category
       _id
+    }
+  }
+`;
+
+export const ADD_WEARING = gql`
+  mutation addWearing($articleId: ID!, $wearDate: Date!) {
+    addWearing(articleId: $articleId, wearDate: $wearDate) {
+      _id
+      category
+      description
+      tags
+      imageFile
+      dateAcquired
+      lastWorn
+      wearings
     }
   }
 `;
