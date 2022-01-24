@@ -2,6 +2,7 @@ const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 const { Article, User } = require('../models');
 const { deleteImageFromFirebase } = require('../utils/firebase');
+const { dateScalar } = require('./customScalars');
 
 const resolvers = {
   Query: {
@@ -67,6 +68,7 @@ const resolvers = {
       return await User.findById(parent.owner);
     }
   },
+  Date: dateScalar,
   Mutation: {
     addTempImage: async (parent, { filename }, context, info) => {
       if (!context.user) {
@@ -93,7 +95,7 @@ const resolvers = {
       return user;
 
     },
-    addArticle: async (parent, { category, description, tags }, context, info) => {
+    addArticle: async (parent, { category, description, tags, dateAcquired }, context, info) => {
       if (!context.user) {
         throw new AuthenticationError('You need to be logged in!');
       }
@@ -104,7 +106,8 @@ const resolvers = {
         description,
         tags,
         imageFile: tempImageFile,
-        owner: context.user._id
+        owner: context.user._id,
+        dateAcquired
       });
       user.tempImageFile = ''
       user.clothing.push(article._id)
@@ -158,6 +161,7 @@ const resolvers = {
       article.category = newArticleData?.category ?? article.category;
       article.tags = newArticleData?.tags ?? article.tags;
       article.description = newArticleData?.description ?? article.description;
+      article.dateAcquired = newArticleData?.dateAcquired ?? article.dateAcquired;
       // TODO check if there is a better way with atomic transaction enforcement
       await Promise.all([user.save(), article.save()]);
       return article;
@@ -179,6 +183,27 @@ const resolvers = {
         User.findByIdAndUpdate(context.user._id, { $pull: { clothing: articleId } }),
         Article.findByIdAndDelete(articleId)
       ]);
+      return article;
+    },
+    addWearing: async (parent, { articleId, wearDate }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('You need to be logged in!');
+      }
+      
+      const article = await Article.findById(articleId).populate('owner');
+
+      if (article.owner.id !== context.user._id) {
+        throw new AuthenticationError('That item does not belong to you!');
+      }
+
+      if (!article.wearings) {
+        article.wearings = [];
+      }
+
+      article.wearings = [...article.wearings, wearDate].sort((a, b) => b - a);
+      article.lastWorn = article.wearings[0];
+
+      await article.save();
       return article;
     }
   },

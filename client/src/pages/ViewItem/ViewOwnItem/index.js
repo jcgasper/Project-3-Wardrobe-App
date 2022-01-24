@@ -1,5 +1,5 @@
 import React from "react";
-import { VStack, Heading, Button, useToast, Flex } from "@chakra-ui/react";
+import { VStack, Heading, Button, useToast, Flex, Divider } from "@chakra-ui/react";
 import { useState } from "react";
 import Auth from '../../../utils/auth';
 import { Link, Redirect } from 'react-router-dom';
@@ -10,6 +10,8 @@ import TagForm from './TagForm';
 import ImageUploadControls from './ImageUploadControls';
 import { UPDATE_ARTICLE } from '../../../utils/mutations';
 import DeleteButton from './DeleteButton';
+import DateAcquiredControl from './DateAcquiredControl';
+import WearingsSection from './WearingsSection';
 
 
 const ViewOwnItem = ({ article }) => {
@@ -19,7 +21,8 @@ const ViewOwnItem = ({ article }) => {
     tags: [...article.tags],
     imageAction: 'none',
     imageFile: article.imageFile,
-    hasChanges: false
+    hasChanges: false, 
+    dateAcquired: (article.dateAcquired ? article.dateAcquired : ''),
   }
   const [formState, setFormState] = useState(initialFormState);
   const [submitArticle, { loading }] = useMutation(UPDATE_ARTICLE, { onCompleted: () => { window.location.assign('/profile'); } });
@@ -52,7 +55,8 @@ const ViewOwnItem = ({ article }) => {
       category: formState.category,
       description: formState.description,
       tags: formState.tags,
-      imageAction: formState.imageAction
+      imageAction: formState.imageAction,
+      dateAcquired: (formState.dateAcquired ? formState.dateAcquired : undefined)
     }
     console.log(article)
     console.log(formState);
@@ -72,9 +76,12 @@ const ViewOwnItem = ({ article }) => {
 
       <DescriptionControl setFormState={setFormState} formState={formState} />
 
+      <DateAcquiredControl formState={formState} setFormState={setFormState} />
+      
       <TagForm formState={formState} setFormState={setFormState} />
 
-      <Flex flexDirection='row' spacing={4} my={8} shouldWrapChildren={true} wrap='wrap' maxW='100vw'>
+
+      <Flex flexDirection='row' spacing={4} my={8} wrap='wrap' maxW='100vw'>
         <Button
           onClick={handleSubmit}
           isLoading={loading}
@@ -108,6 +115,10 @@ const ViewOwnItem = ({ article }) => {
           Go Back
         </Button>
       </Flex>
+
+      <Divider orientation='horizontal' />
+      
+      <WearingsSection articleId={article._id} wearings={article.wearings} />
 
     </VStack>
   );

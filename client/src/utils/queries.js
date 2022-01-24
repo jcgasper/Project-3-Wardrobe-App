@@ -13,6 +13,7 @@ export const GET_ME = gql`
         description
         tags
         imageFile
+        dateAcquired
       }
     }
   }
@@ -26,6 +27,9 @@ export const GET_ARTICLE = gql`
       description
       tags
       imageFile
+      dateAcquired
+      lastWorn
+      wearings
       owner {
         _id
         displayname

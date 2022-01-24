@@ -9,9 +9,9 @@ import {
   Box
 } from "@chakra-ui/react";
 import { FaFilter } from 'react-icons/fa';
-import FilterForm from './FilterForm';
+import TagFilter from './TagFilter';
 
-function ProfileFilter({clothes, setCategories, setTags}) {
+function ProfileFilter({clothes, setCategories, setTags, tags}) {
 
     const [availableTags, setAvailableTags] = useState(getTags());
 
@@ -20,7 +20,9 @@ function ProfileFilter({clothes, setCategories, setTags}) {
         clothes.forEach(article => allTags = [...allTags, ...article.tags]);
         allTags = [...new Set(allTags)];
 
-        return allTags;
+        return allTags.map(tag => {
+            return {value: tag, label: tag}
+        });
     }
     
 
@@ -36,7 +38,7 @@ function ProfileFilter({clothes, setCategories, setTags}) {
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
-          <FilterForm />
+          <TagFilter availableTags={availableTags} setTags={setTags} tags={tags} />
         </AccordionPanel>
       </AccordionItem>
     </Accordion>

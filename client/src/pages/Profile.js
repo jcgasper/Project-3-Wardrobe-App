@@ -35,7 +35,7 @@ function Profile() {
     return (
         <>
         <Box mb={10} mt={14} w='full'>
-            <ProfileFilter clothes={clothes} setCategories={setCategories} setTags={setTags} />
+            <ProfileFilter clothes={clothes} setCategories={setCategories} setTags={setTags} tags={tags} />
         </Box>
         
         <Grid templateColumns='repeat(auto-fill, minmax(210px, 1fr))' gap={10} mb={20}>

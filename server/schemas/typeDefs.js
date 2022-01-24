@@ -1,6 +1,8 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+  scalar Date
+
   type User {
     _id: ID
     email: String
@@ -25,6 +27,9 @@ const typeDefs = gql`
     tags: [String]!
     imageFile: String
     owner: User
+    lastWorn: Date
+    wearings: [Date]
+    dateAcquired: Date
   }
 
   type Auth {
@@ -58,6 +63,7 @@ const typeDefs = gql`
       category: ArticleCategory!,
       description: String,
       tags: [String],
+      dateAcquired: Date
       ): Article
     addUser(email: String!, password: String!, displayname: String!): Auth
     login(email: String!, password: String!): Auth
@@ -66,7 +72,12 @@ const typeDefs = gql`
       category: ArticleCategory,
       description: String,
       tags: [String],
+      dateAcquired: Date,
       imageAction: ImageAction
+    ): Article
+    addWearing(
+      articleId: ID!,
+      wearDate: Date!
     ): Article
     removeArticle(articleId: ID!): Article
   }

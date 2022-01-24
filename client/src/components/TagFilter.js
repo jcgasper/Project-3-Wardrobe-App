@@ -4,20 +4,15 @@ import { CheckIcon } from '@chakra-ui/icons';
 
 
 
-function FilterForm() {
+function TagFilter({availableTags, setTags, tags}) {
 
-    const countries = [
-        { value: "ghana", label: "Ghana" },
-        { value: "nigeria", label: "Nigeria" },
-        { value: "kenya", label: "Kenya" },
-        { value: "southAfrica", label: "South Africa" },
-        { value: "unitedStates", label: "United States" },
-        { value: "canada", label: "Canada" },
-        { value: "germany", label: "Germany" }
-      ];
 
-    const [pickerItems, setPickerItems] = React.useState(countries);
+    const [pickerItems, setPickerItems] = React.useState(availableTags);
     const [selectedItems, setSelectedItems] = React.useState([]);
+
+    const changeAvailableTags = (itemsArray) => {
+        
+    }
 
     const handleCreateItem = (item) => {
         setPickerItems((curr) => [...curr, item]);
@@ -27,6 +22,8 @@ function FilterForm() {
     const handleSelectedItemsChange = (selectedItems) => {
         if (selectedItems) {
         setSelectedItems(selectedItems);
+        changeAvailableTags(selectedItems);
+        setTags(selectedItems);
         }
     };
 
@@ -51,10 +48,11 @@ function FilterForm() {
             onSelectedItemsChange={(changes) =>
                 handleSelectedItemsChange(changes.selectedItems)
             }
+            toggleButtonStyleProps={{colorScheme: 'pink'}}
             />
         </>
         
     )
 }
 
-export default FilterForm;
+export default TagFilter;
