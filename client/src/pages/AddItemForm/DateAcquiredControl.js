@@ -8,7 +8,7 @@ import {
 const DateAcquiredControl = ({ formState, setFormState }) => {
   return (
     <FormControl>
-      <FormLabel htmlFor="date-" fontSize='lg' fontWeight='bold' textColor='pink.700'>Date Acquired</FormLabel>
+      <FormLabel htmlFor="date-" fontSize='lg' fontWeight='bold' textColor='pink.700'>Date Acquired (This won't be visible to other users.)</FormLabel>
       <Input
         id="date-acquired"
         name="date-acquired"
