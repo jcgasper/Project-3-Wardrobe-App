@@ -8,7 +8,7 @@ import {
 const DateAcquiredControl = ({ formState, setFormState }) => {
   return (
     <FormControl>
-      <FormLabel htmlFor="date-" fontSize='lg' fontWeight='bold' textColor='pink.700'>Date Acquired (This won't be visible to other users.)</FormLabel>
+      <FormLabel htmlFor="date-" fontSize='lg' fontWeight='bold' textColor='pink.700'>Date Acquired (Not visible to other users.)</FormLabel>
       <Input
         id="date-acquired"
         name="date-acquired"
@@ -17,7 +17,7 @@ const DateAcquiredControl = ({ formState, setFormState }) => {
         focusBorderColor='pink.400'
         borderColor='pink.700'
         value={formState.dateAcquired}
-        onChange={(e) => setFormState({ ...formState, dateAcquired: e.target.value })}
+        onChange={(e) => setFormState({ ...formState, hasChanges: true, dateAcquired: e.target.value })}
       />
     </FormControl>
   );

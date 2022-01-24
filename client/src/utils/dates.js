@@ -3,5 +3,15 @@ export const dateToDateString = (date) => {
     return null;
   }
 
-  return date.toISOString().split('T')[0]
+  return date.getFullYear() + '-' + getMonthAs2Digits(date) + '-' + getDayOfMonthAs2Digits(date)
+}
+
+export const getMonthAs2Digits = (date) => {
+  const month = (date.getMonth() + 1).toString();
+  return (month.length === 1) ? ('0' + month) : (month);
+}
+
+export const getDayOfMonthAs2Digits = (date) => {
+  const day = date.getDate().toString();
+  return (day.length === 1) ? ('0' + day) : (day);
 }
