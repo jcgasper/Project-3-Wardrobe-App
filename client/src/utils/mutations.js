@@ -49,13 +49,14 @@ export const REMOVE_TEMP_IMAGE = gql`
 `;
 
 export const ADD_ARTICLE = gql`
-  mutation addArticle($category: ArticleCategory!, $description: String, $tags: [String]) {
-    addArticle(category: $category, description: $description, tags: $tags) {
+  mutation addArticle($category: ArticleCategory!, $description: String, $tags: [String], $dateAcquired: Date) {
+    addArticle(category: $category, description: $description, tags: $tags, dateAcquired: $dateAcquired) {
       _id
       category
       description
       tags
       imageFile
+      dateAcquired
     }
   }
 `;

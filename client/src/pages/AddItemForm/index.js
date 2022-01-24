@@ -9,6 +9,7 @@ import CategoryControl from './CategoryControl';
 import DescriptionControl from './DescriptionControl';
 import TagForm from './TagForm';
 import ImageUploadControls from './ImageUploadControls';
+import DateAcquiredControl from './DateAcquiredControl';
 
 
 const AddItemForm = () => {
@@ -17,7 +18,8 @@ const AddItemForm = () => {
       description: "",
       category: "Top",
       tags: [],
-      imageUploaded: false
+      imageUploaded: false,
+      dateAcquired: ''
     }
   );
   const [submitArticle, { loading }] = useMutation(ADD_ARTICLE, { onCompleted: () => { window.location.assign('/profile'); } });
@@ -47,8 +49,9 @@ const AddItemForm = () => {
     submitArticle({
       variables: {
         category: formState.category,
-        description: formState.description,
-        tags: formState.tags
+        description: formState.description.trim(),
+        tags: formState.tags,
+        dateAcquired: (formState.dateAcquired ? formState.dateAcquired : undefined ) 
       }
     });
   };
@@ -63,7 +66,10 @@ const AddItemForm = () => {
 
       <DescriptionControl setFormState={setFormState} formState={formState} />
 
+      <DateAcquiredControl formState={formState} setFormState={setFormState} />
+
       <TagForm formState={formState} setFormState={setFormState} />
+
 
       <HStack spacing={4}>
         <Button
