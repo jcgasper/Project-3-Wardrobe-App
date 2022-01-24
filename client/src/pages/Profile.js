@@ -16,7 +16,8 @@ function Profile() {
         window.location.assign('/');
     }
 
-    const [currCategory, setCurrCategory] = useState();
+    const [tags, setTags] = useState();
+    const [categories, setCategories] = useState();
 
     const {loading, data} = useQuery(GET_ME);
 
@@ -33,11 +34,11 @@ function Profile() {
 
     return (
         <>
-        <Box my={10} w='full'>
-            <ProfileFilter />
+        <Box mb={10} mt={14} w='full'>
+            <ProfileFilter clothes={clothes} setCategories={setCategories} setTags={setTags} />
         </Box>
         
-        <Grid templateColumns='repeat(auto-fill, minmax(210px, 1fr))' gap={10}>
+        <Grid templateColumns='repeat(auto-fill, minmax(210px, 1fr))' gap={10} mb={20}>
             {(!clothes.length) ? <GridItem colSpan='4'><Heading>You've got no clothes! Why don't you add some?</Heading></GridItem> : 
             clothes.map(article => {return (<GridItem><ProfileBox image={article.imageFile} desc={article.description} id={article._id} key={article._id} /></GridItem>)})}
         </Grid>

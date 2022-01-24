@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Accordion,
   AccordionItem,
@@ -8,9 +8,22 @@ import {
   Icon,
   Box
 } from "@chakra-ui/react";
-import { FaFilter } from 'react-icons/fa'
+import { FaFilter } from 'react-icons/fa';
+import FilterForm from './FilterForm';
 
-function ProfileFilter() {
+function ProfileFilter({clothes, setCategories, setTags}) {
+
+    const [availableTags, setAvailableTags] = useState(getTags());
+
+    function getTags() {
+        let allTags = [];
+        clothes.forEach(article => allTags = [...allTags, ...article.tags]);
+        allTags = [...new Set(allTags)];
+
+        return allTags;
+    }
+    
+
   return (
     <Accordion allowToggle w='full'>
       <AccordionItem>
@@ -23,7 +36,7 @@ function ProfileFilter() {
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
-          Insert Form for Handling filters...
+          <FilterForm />
         </AccordionPanel>
       </AccordionItem>
     </Accordion>
