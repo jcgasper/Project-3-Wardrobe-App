@@ -29,7 +29,7 @@ const typeDefs = gql`
     owner: User
     lastWorn: Date
     wearingLog: [Date]
-    dateAcquired: String
+    dateAcquired: Date
   }
 
   type Auth {
