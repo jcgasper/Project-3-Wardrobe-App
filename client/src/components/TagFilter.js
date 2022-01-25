@@ -1,55 +1,26 @@
 import React from 'react';
-import { CUIAutoComplete } from 'chakra-ui-autocomplete';
-import { CheckIcon } from '@chakra-ui/icons';
+import { FormControl, FormLabel } from '@chakra-ui/react';
+import { Select } from 'chakra-react-select';
 
 
+function TagFilter({availableTags, setAvailableTags, setTags, tags}) {
 
-function TagFilter({availableTags, setTags, tags}) {
-
-
-    const [pickerItems, setPickerItems] = React.useState(availableTags);
-    const [selectedItems, setSelectedItems] = React.useState([]);
-
-    const changeAvailableTags = (itemsArray) => {
-        
+    const updateTags = (val) => {
+        setTags(val.map(tag => tag.value));
     }
-
-    const handleCreateItem = (item) => {
-        setPickerItems((curr) => [...curr, item]);
-        setSelectedItems((curr) => [...curr, item]);
-    };
-
-    const handleSelectedItemsChange = (selectedItems) => {
-        if (selectedItems) {
-        setSelectedItems(selectedItems);
-        changeAvailableTags(selectedItems);
-        setTags(selectedItems);
-        }
-    };
 
     return (
         <>
-            <CUIAutoComplete
-            label="Filter by Tags"
-            placeholder="start typing a tag..."
-            onCreateItem={handleCreateItem}
-            items={pickerItems}
-            tagStyleProps={{
-                rounded: "none",
-                pt: 1,
-                pb: 2,
-                px: 2,
-                fontSize: "1rem",
-                colorScheme: 'pink'
-            }}
-            icon={CheckIcon}
-            selectedIconProps={{textColor: 'pink.500'}}
-            selectedItems={selectedItems}
-            onSelectedItemsChange={(changes) =>
-                handleSelectedItemsChange(changes.selectedItems)
-            }
-            toggleButtonStyleProps={{colorScheme: 'pink'}}
-            />
+            <FormControl>
+                <FormLabel>Select Tags to Filter</FormLabel>
+                <Select 
+                    colorScheme='pink'
+                    focusBorderColor='pink.500'
+                    isMulti
+                    options={availableTags}
+                    onChange={updateTags} />
+            </FormControl>
+            
         </>
         
     )

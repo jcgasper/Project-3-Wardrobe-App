@@ -38,7 +38,7 @@ function ProfileFilter({clothes, setCategories, setTags, tags}) {
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
-          <TagFilter availableTags={availableTags} setTags={setTags} tags={tags} />
+          <TagFilter availableTags={availableTags} setAvailableTags={setAvailableTags} setTags={setTags} tags={tags} />
         </AccordionPanel>
       </AccordionItem>
     </Accordion>

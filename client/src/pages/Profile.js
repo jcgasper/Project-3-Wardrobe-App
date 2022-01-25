@@ -16,7 +16,7 @@ function Profile() {
         window.location.assign('/');
     }
 
-    const [tags, setTags] = useState();
+    const [tags, setTags] = useState([]);
     const [categories, setCategories] = useState();
 
     const {loading, data} = useQuery(GET_ME);
