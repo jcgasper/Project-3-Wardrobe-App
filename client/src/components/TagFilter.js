@@ -3,7 +3,7 @@ import { filter, FormControl, FormLabel } from '@chakra-ui/react';
 import { Select } from 'chakra-react-select';
 
 
-function TagFilter({clothes, availableTags, setAvailableTags, setTags, tags}) {
+function TagFilter({clothes, categories, availableTags, setAvailableTags, setTags, tags}) {
 
     const [tagList, setTagList] = useState(availableTags);
 
@@ -24,8 +24,13 @@ function TagFilter({clothes, availableTags, setAvailableTags, setTags, tags}) {
                 newTags = [...newTags, ...article.tags];
             });
             newTags = [...new Set(newTags)].sort().map(tag => ({value: tag, label: tag}));
-        } else {
+        } else if(!categories) {
             clothes.forEach(article =>  {
+                newTags = [...newTags, ...article.tags];
+            });
+            newTags = [...new Set(newTags)].sort().map(tag => ({value: tag, label: tag}));
+        } else {
+            clothes.filter(article => article.category === categories).forEach(article =>  {
                 newTags = [...newTags, ...article.tags];
             });
             newTags = [...new Set(newTags)].sort().map(tag => ({value: tag, label: tag}));
@@ -49,7 +54,24 @@ function TagFilter({clothes, availableTags, setAvailableTags, setTags, tags}) {
                     focusBorderColor='pink.500'
                     isMulti
                     options={availableTags}
-                    onChange={updateTags} />
+                    onChange={updateTags}
+                    chakraStyles={{
+                        control: (provided) => ({
+                            ...provided,
+                            borderRadius: 'none'
+                        }),
+                        multiValue: (provided) => ({
+                            ...provided,
+                            borderRadius: 'none',
+                        }),
+                        option: (provided) => ({
+                            ...provided,
+                            _hover: {
+                                bg: 'pink.100'
+                            }
+                        })
+                    }}
+                     />
             </FormControl>
             
         </>

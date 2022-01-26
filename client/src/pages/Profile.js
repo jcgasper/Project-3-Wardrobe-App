@@ -35,13 +35,14 @@ function Profile() {
     return (
         <>
         <Box mb={10} mt={14} w='full'>
-            <ProfileFilter clothes={clothes} setCategories={setCategories} setTags={setTags} tags={tags} />
+            <ProfileFilter clothes={clothes} categories={categories} setCategories={setCategories} setTags={setTags} tags={tags} />
         </Box>
         
         <Grid templateColumns='repeat(auto-fill, minmax(210px, 1fr))' gap={10} mb={20}>
             {(!clothes.length) ? <GridItem colSpan='4'><Heading>You've got no clothes! Why don't you add some?</Heading></GridItem> : 
-            (tags.length === 0) ? clothes.map(article => {return (<GridItem><ProfileBox image={article.imageFile} desc={article.description} id={article._id} key={article._id} /></GridItem>)}) :
-            clothes.filter(article => tags.every(tag => article.tags.includes(tag))).map(article => {return (<GridItem><ProfileBox image={article.imageFile} desc={article.description} id={article._id} key={article._id} /></GridItem>)})}
+            (tags.length === 0 && !categories) ? clothes.map(article => {return (<GridItem key={article._id}><ProfileBox image={article.imageFile} desc={article.description} id={article._id} key={article._id} /></GridItem>)}) :
+            (!categories) ? clothes.filter(article => tags.every(tag => article.tags.includes(tag))).map(article => {return (<GridItem key={article._id}><ProfileBox image={article.imageFile} desc={article.description} id={article._id} key={article._id} /></GridItem>)}) :
+            clothes.filter(article => (tags.every(tag => article.tags.includes(tag)) && article.category === categories)).map(article => {return (<GridItem key={article._id}><ProfileBox image={article.imageFile} desc={article.description} id={article._id} key={article._id} /></GridItem>)})}
         </Grid>
            
         <AddButton />
