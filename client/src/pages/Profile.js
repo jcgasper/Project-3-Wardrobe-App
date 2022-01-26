@@ -41,7 +41,7 @@ function Profile() {
         <Grid templateColumns='repeat(auto-fill, minmax(210px, 1fr))' gap={10} mb={20}>
             {(!clothes.length) ? <GridItem colSpan='4'><Heading>You've got no clothes! Why don't you add some?</Heading></GridItem> : 
             (tags.length === 0) ? clothes.map(article => {return (<GridItem><ProfileBox image={article.imageFile} desc={article.description} id={article._id} key={article._id} /></GridItem>)}) :
-            clothes.filter(article => article.tags.some(tag => tags.includes(tag))).map(article => {return (<GridItem><ProfileBox image={article.imageFile} desc={article.description} id={article._id} key={article._id} /></GridItem>)})}
+            clothes.filter(article => tags.every(tag => article.tags.includes(tag))).map(article => {return (<GridItem><ProfileBox image={article.imageFile} desc={article.description} id={article._id} key={article._id} /></GridItem>)})}
         </Grid>
            
         <AddButton />

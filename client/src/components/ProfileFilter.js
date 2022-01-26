@@ -18,7 +18,7 @@ function ProfileFilter({clothes, setCategories, setTags, tags}) {
     function getTags() {
         let allTags = [];
         clothes.forEach(article => allTags = [...allTags, ...article.tags]);
-        allTags = [...new Set(allTags)];
+        allTags = [...new Set(allTags)].sort();
 
         return allTags.map(tag => {
             return {value: tag, label: tag}
@@ -38,7 +38,7 @@ function ProfileFilter({clothes, setCategories, setTags, tags}) {
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
-          <TagFilter availableTags={availableTags} setAvailableTags={setAvailableTags} setTags={setTags} tags={tags} />
+          <TagFilter clothes={clothes} availableTags={availableTags} setAvailableTags={setAvailableTags} setTags={setTags} tags={tags} />
         </AccordionPanel>
       </AccordionItem>
     </Accordion>
