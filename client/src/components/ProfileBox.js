@@ -18,7 +18,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { useMutation } from "@apollo/client";
 import { getDownloadURLForImageFile } from '../utils/imageUploads';
 import { REMOVE_ARTICLE } from '../utils/mutations';
-import { GET_BY_CATEGORY } from '../utils/queries';
+import { GET_ME } from '../utils/queries';
 
 function ProfileBox({image, desc, id}) {
     const [isOpen, setIsOpen] = useState(false)
@@ -28,7 +28,7 @@ function ProfileBox({image, desc, id}) {
 
     const [removeArticle] = useMutation(REMOVE_ARTICLE, {
       refetchQueries: [
-        GET_BY_CATEGORY
+        GET_ME
       ]
     });
 
